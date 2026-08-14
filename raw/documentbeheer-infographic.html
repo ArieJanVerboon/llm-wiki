@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gefaseerd Implementatieplan Documentbeheer - Naam Training Afgekort</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .intro {
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .intro h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .intro p {
+            line-height: 1.8;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .phases-container {
+            padding: 40px;
+        }
+
+        .phases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .phase-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid #667eea;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .phase-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        .phase-card h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            padding-right: 60px;
+        }
+
+        .duration {
+            display: inline-block;
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .activities {
+            margin-top: 20px;
+        }
+
+        .activities h4 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-list li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            line-height: 1.6;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-list li:last-child {
+            border-bottom: none;
+        }
+
+        .activity-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .training-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 40px;
+            color: white;
+        }
+
+        .training-section h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .training-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .training-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .training-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .training-card .abbreviation {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .training-card p {
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .success-metrics {
+            background: #f8f9fa;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .success-metrics h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header .subtitle {
+                font-size: 1em;
+            }
+
+            .phases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .phase-card h3 {
+                font-size: 1.4em;
+            }
+
+            .intro, .phases-container, .training-section {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .phase-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Gefaseerd Implementatieplan Documentbeheer</h1>
+            <p class="subtitle">SharePoint Document Management - Naam Training Afgekort</p>
+        </div>
+
+        <div class="intro">
+            <h2>Persoonlijk Adviseren & Documentbeheer</h2>
+            <p>
+                Dit gefaseerd implementatieplan biedt een systematische benadering voor het implementeren van 
+                een uitgebreid SharePoint documentbeheer systeem. Het programma combineert persoonlijk adviseren 
+                met praktische implementatie, waarbij de focus ligt op organisatie, beveiliging, samenwerking en 
+                automatisering voor maximale productiviteit en efficiëntie.
+            </p>
+        </div>
+
+        <div class="phases-container">
+            <h2 style="color: #667eea; font-size: 2.2em; margin-bottom: 20px; text-align: center;">
+                Implementatiefasen Overzicht
+            </h2>
+
+            <div class="phases-grid">
+                <div class="phase-card">
+                    <div class="phase-number">1</div>
+                    <h3>Voorbereiding</h3>
+                    <span class="duration">📅 Week 1-2</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Behoefteanalyse uitvoeren</li>
+                            <li>Technische infrastructuur voorbereiden</li>
+                            <li>Projectteam samenstellen</li>
+                            <li>Rollen en verantwoordelijkheden definiëren</li>
+                            <li>Implementatie roadmap opstellen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">2</div>
+                    <h3>Structuur Opzetten</h3>
+                    <span class="duration">📅 Week 3-5</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Logische mappenstructuur implementeren</li>
+                            <li>Metadata framework ontwikkelen</li>
+                            <li>Content types configureren</li>
+                            <li>Vlakke mappenstructuur creëren</li>
+                            <li>Naamgevingsconventies vaststellen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">3</div>
+                    <h3>Beveiliging</h3>
+                    <span class="duration">📅 Week 6-7</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Toegangsstructuur implementeren</li>
+                            <li>Machtigingsniveaus configureren</li>
+                            <li>Item-niveau beveiliging instellen</li>
+                            <li>Veilige deelpraktijken vaststellen</li>
+                            <li>Beveiligingsarchitectuur documenteren</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">4</div>
+                    <h3>Samenwerking</h3>
+                    <span class="duration">📅 Week 8-9</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Co-authoring mogelijkheden activeren</li>
+                            <li>Versiebeheer implementeren</li>
+                            <li>Check-out systeem configureren</li>
+                            <li>Real-time samenwerkingsfuncties</li>
+                            <li>Conflictpreventie mechanismen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">5</div>
+                    <h3>Automatisering</h3>
+                    <span class="duration">📅 Week 10-12</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Geautomatiseerde workflows implementeren</li>
+                            <li>Power Automate integratie</li>
+                            <li>Alerts en notificaties configureren</li>
+                            <li>Repetitieve taken automatiseren</li>
+                            <li>Goedkeuringsflows instellen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">6</div>
+                    <h3>Geavanceerde Functies</h3>
+                    <span class="duration">📅 Week 13-14</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Custom views en filters implementeren</li>
+                            <li>Web parts configureren</li>
+                            <li>Bibliotheek instellingen optimaliseren</li>
+                            <li>Dynamische filtering opties</li>
+                            <li>Content governance instellen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">7</div>
+                    <h3>Bestandsbeheer</h3>
+                    <span class="duration">📅 Week 15-16</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Bulk upload functionaliteiten</li>
+                            <li>OneDrive synchronisatie configureren</li>
+                            <li>Thumbnail views activeren</li>
+                            <li>Drag-and-drop functionaliteit</li>
+                            <li>Offline werken mogelijkheden</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">8</div>
+                    <h3>Document Center</h3>
+                    <span class="duration">📅 Week 17-18</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Single source of truth etableren</li>
+                            <li>Gecentraliseerd center implementeren</li>
+                            <li>Uitdagingen addresseren</li>
+                            <li>Controle mechanismen configureren</li>
+                            <li>Interdepartementale kruisverwijzingen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">9</div>
+                    <h3>Training</h3>
+                    <span class="duration">📅 Week 19-20</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Gebruikerstraining programma uitvoeren</li>
+                            <li>Change management ondersteuning</li>
+                            <li>Adoptie monitoring</li>
+                            <li>Gebruikershandleidingen creëren</li>
+                            <li>Feedback mechanismen instellen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">10</div>
+                    <h3>Go-Live</h3>
+                    <span class="duration">📅 Week 21-22</span>
+                    <div class="activities">
+                        <h4>Kernactiviteiten:</h4>
+                        <ul class="activity-list">
+                            <li>Volledige implementatie activeren</li>
+                            <li>Performance monitoring</li>
+                            <li>Continue verbetering proces starten</li>
+                            <li>Ondersteuning procedures configureren</li>
+                            <li>Monitoring dashboard instellen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="success-metrics">
+            <h2>Succesfactoren & KPI's</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Metadata Compleetheid</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">90%</div>
+                    <div class="metric-label">Zoeksucces Ratio</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">80%</div>
+                    <div class="metric-label">Gebruikersadoptie</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">50%</div>
+                    <div class="metric-label">Tijdbesparing Zoeken</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="training-section">
+            <h2>Naam Training Afgekort - Persoonlijk Adviseren</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1em;">
+                Gespecialiseerde trainingsprogramma's voor effectief documentbeheer en persoonlijke ontwikkeling
+            </p>
+
+            <div class="training-grid">
+                <div class="training-card">
+                    <h3>Persoonlijk Adviseren</h3>
+                    <span class="abbreviation">PA</span>
+                    <p>
+                        Ontwikkel vaardigheden in persoonlijk adviseren en begeleiding voor effectieve 
+                        implementatie van documentbeheer systemen binnen uw organisatie.
+                    </p>
+                </div>
+
+                <div class="training-card">
+                    <h3>SharePoint Beheer</h3>
+                    <span class="abbreviation">SPB</span>
+                    <p>
+                        Technische training in SharePoint administratie, configuratie en optimalisatie 
+                        voor maximale productiviteit en gebruikersadoptie.
+                    </p>
+                </div>
+
+                <div class="training-card">
+                    <h3>Metadata Management</h3>
+                    <span class="abbreviation">MM</span>
+                    <p>
+                        Leer effectieve metadata schema's ontwerpen en implementeren voor intelligente 
+                        documentorganisatie en verbeterde vindbaarheid.
+                    </p>
+                </div>
+
+                <div class="training-card">
+                    <h3>Workflow Automatisering</h3>
+                    <span class="abbreviation">WA</span>
+                    <p>
+                        Power Automate training voor het creëren van geautomatiseerde workflows die 
+                        repetitieve taken elimineren en efficiëntie verhogen.
+                    </p>
+                </div>
+
+                <div class="training-card">
+                    <h3>Change Management</h3>
+                    <span class="abbreviation">CM</span>
+                    <p>
+                        Strategieën en technieken voor succesvolle organisatieverandering en 
+                        gebruikersadoptie van nieuwe documentbeheer systemen.
+                    </p>
+                </div>
+
+                <div class="training-card">
+                    <h3>Informatie Governance</h3>
+                    <span class="abbreviation">IG</span>
+                    <p>
+                        Training in compliance, beveiliging en governance voor verantwoord 
+                        documentbeheer en informatiebeveiliging binnen de organisatie.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Gefaseerd Implementatieplan Documentbeheer</strong></p>
+            <p>Ontwikkeld voor optimale SharePoint implementatie met focus op persoonlijk adviseren</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                📅 Totale Implementatieduur: 21-22 weken | 🎯 10 Gefaseerde Stappen | ✅ Bewezen Methodologie
+            </p>
+        </div>
+    </div>
+</body>
+</html>

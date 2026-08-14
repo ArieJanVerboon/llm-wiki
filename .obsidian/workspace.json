@@ -1,0 +1,228 @@
+{
+  "main": {
+    "id": "d06a5f28029926d4",
+    "type": "split",
+    "children": [
+      {
+        "id": "bec3a87144e463d3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0844a50cf910ae9d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "log.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "log"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ae07f8ae5b1b2414",
+    "type": "split",
+    "children": [
+      {
+        "id": "a777f814fff80518",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8b566821498af427",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "4d7f7476f11013b2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d26cb800a7fd14bc",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "de60f81d7c42ecb8",
+    "type": "split",
+    "children": [
+      {
+        "id": "2f9aabfa9431864f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9f8bf623da7ec9db",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "CLAUDE.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for CLAUDE"
+            }
+          },
+          {
+            "id": "7d6adacb4ba73f4f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "CLAUDE.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from CLAUDE"
+            }
+          },
+          {
+            "id": "2c060332895d36ea",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "1b3823f069fa3d3c",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "1143e00803024ebf",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "wiki/topics/llm-augmented-knowledge-bases.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of llm-augmented-knowledge-bases"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "0844a50cf910ae9d",
+  "lastOpenFiles": [
+    "index.md",
+    "CLAUDE.md",
+    "2026-05-26.md",
+    "Untitled.canvas",
+    "Untitled 1.base",
+    "Untitled 1.canvas",
+    "Untitled 2.canvas",
+    "Untitled 2.base",
+    "Untitled 3.canvas",
+    "Untitled.base",
+    "Untitled",
+    "wiki/concepts/auteursrecht-wetenschappelijk-werk.md",
+    "wiki/concepts/naamgevingsconventie.md",
+    "wiki/sources/auteursrecht-wetenschappelijk-werk.md",
+    "wiki/entities/baakiekwal.md",
+    "raw/_seed/karpathy-llm-wiki.md",
+    "wiki/topics/baakie-pipeline.md",
+    "wiki/concepts/three-layer-architecture.md",
+    "templates/_source.md",
+    "wiki/sources/debaak-dm-phase1.md",
+    "wiki/sources/documentbeheer-infographic.md",
+    "wiki/entities/anewspring.md",
+    "wiki/topics/llm-augmented-knowledge-bases.md",
+    "wiki/concepts/baakiekwal-werkwijze.md",
+    "wiki/concepts/rag.md",
+    "wiki/concepts/bronvermelding.md",
+    "log.md.tmp.35692.7df9ddd574e3",
+    "index.md.tmp.35692.e7e3cfb62f75",
+    "index.md.tmp.35692.3b08b66e9c94",
+    "wiki/topics/baakie-pipeline.md.tmp.35692.f9621603b47c",
+    "wiki/concepts/baakiekwal-werkwijze.md.tmp.35692.17849e5f89a0",
+    "wiki/concepts/naamgevingsconventie.md.tmp.35692.62c6464aad7a",
+    "wiki/concepts/wetenschappelijke-kwaliteit.md",
+    "wiki/concepts/sharepoint-contentflow.md",
+    "wiki/entities/baakieprint.md",
+    "wiki/entities/baakiedoc.md",
+    "wiki/entities/de-baak.md",
+    "wiki/concepts/ingest-query-lint.md"
+  ]
+}

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Infographic – Document management stappen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --orange: #f7931d;
+      --green: #00ff00;
+      --yellow: #ffe600;
+      --grey: #d9d9d9;
+      --border-dark: #333333;
+      --accent-red: #d90000;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 0.5rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      margin: 0.2rem 0 0.4rem;
+    }
+
+    .intro {
+      margin-bottom: 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* KAARTEN / BLOKKEN */
+    .step {
+      position: relative;
+      border-radius: 4px;
+      border: 2px solid var(--border-dark);
+      padding: 0.9rem;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .step-header {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      padding: 0.1rem 0.4rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-dark);
+      background: #fff;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-dark);
+      background: #fff;
+      margin-right: 0.25rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .meta {
+      font-size: 0.75rem;
+      margin-top: 0.4rem;
+    }
+
+    /* SPECIFIEKE STAPPEN – kleuren uit de afbeelding */
+    .step--archive {
+      background: var(--orange);
+      color: #000;
+    }
+
+    .step--archive .subfolder {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      margin-right: 0.3rem;
+      margin-bottom: 0.3rem;
+      border-radius: 3px;
+      background: #f5f5f5;
+      border: 1px solid #888;
+      font-size: 0.8rem;
+    }
+
+    .step--workmap {
+      background: var(--orange);
+      color: #000;
+    }
+
+    .step--excel {
+      background: var(--yellow);
+    }
+
+    .step--library {
+      background: var(--green);
+    }
+
+    .step--rules {
+      background: #fff;
+      border-style: dashed;
+    }
+
+    .step--legend {
+      background: #fff;
+    }
+
+    /* LEGEND BLOKKEN */
+    .legend-box {
+      display: inline-flex;
+      align-items: center;
+      margin: 0.15rem 0;
+      font-size: 0.75rem;
+    }
+
+    .legend-color {
+      width: 32px;
+      height: 16px;
+      margin-right: 0.4rem;
+      border: 1px solid #222;
+    }
+
+    .legend-color.map-main {
+      background: var(--orange);
+    }
+
+    .legend-color.map-sub {
+      background: var(--grey);
+    }
+
+    .legend-color.map-green {
+      background: var(--green);
+    }
+
+    .legend-color.excel {
+      background: var(--yellow);
+    }
+
+    /* PIJLEN / FLOW */
+    .flow-arrow {
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 16px solid #000;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .flow-arrow {
+        display: none;
+      }
+    }
+
+    .step-number {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #fff;
+      padding: 0.1rem 0.35rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-dark);
+    }
+
+    .hint {
+      color: var(--accent-red);
+      font-size: 0.75rem;
+      margin-top: 0.4rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <h1>Stappenplan document&nbsp;management op SharePoint</h1>
+      <p>
+        Deze infographic visualiseert de flow uit de werkafbeelding:
+        van de <strong>werkmap</strong>, via een <strong>Excel‑register met metadata</strong>,
+        naar een geborgde <strong>contentbibliotheek</strong> in SharePoint.
+      </p>
+    </header>
+
+    <section class="grid" aria-label="Infographic stappen">
+      <!-- STAP 1: ARCHIEF / BRONMAP -->
+      <article class="step step--archive">
+        <div class="step-number">Stap 1</div>
+        <div class="step-header">Archief &amp; bronmappen</div>
+        <p class="tagline">Bestaande content in grote archiefmap</p>
+
+        <p><strong>Naam map</strong><br/>
+          <span class="label">Archief content Anetwspringt programma coördinatie</span>
+        </p>
+        <p class="meta">
+          <strong>Locatie</strong> SharePoint<br/>
+          <strong>Toegangsrechten</strong> kopiëren, niet bewerken
+        </p>
+
+        <p style="margin-top:0.5rem;">Voorbeeld submappen:</p>
+        <div>
+          <span class="subfolder">Lap</span>
+          <span class="subfolder">PA</span>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true"></div>
+      </article>
+
+      <!-- STAP 2: WERKMAP -->
+      <article class="step step--workmap">
+        <div class="step-number">Stap 2</div>
+        <div class="step-header">Content Anetwspring werkmap 2025</div>
+        <p class="tagline">Kopie uit archief voor bewerking &amp; selectie</p>
+
+        <p><strong>Naam map</strong><br/>
+          <span class="label">content anetwspring werkmap 2025</span>
+        </p>
+        <p class="meta">
+          <strong>Locatie</strong> SharePoint<br/>
+          <strong>Toegangsrechten</strong> kopiëren, niet bewerken
+        </p>
+
+        <p style="margin-top:0.5rem;">Gebruik deze werkmap om materiaal te verzamelen dat in de
+          contentbibliotheek wordt opgenomen.</p>
+
+        <div class="flow-arrow" aria-hidden="true"></div>
+      </article>
+
+      <!-- STAP 3: EXCEL METADATA REGISTER -->
+      <article class="step step--excel">
+        <div class="step-number">Stap 3</div>
+        <div class="step-header">Excel content‑metadata register</div>
+        <p class="tagline">Overzicht alle trainingscontent met links</p>
+
+        <p><strong>Naam bestand</strong><br/>
+          <span class="label">content anetwspring metadata</span>
+        </p>
+
+        <p class="meta">
+          <strong>Locatie</strong> SharePoint<br/>
+          <strong>Toegangsrechten</strong> kopiëren, niet bewerken
+        </p>
+
+        <p style="margin-top:0.4rem;">
+          Deze Excel met metadata wordt beheerd door <strong>document management</strong>.
+          Alle betrokken partijen vragen toegang en gebruiken een kopie om hun content te registreren.
+        </p>
+
+        <p style="margin-top:0.4rem;">
+          Voor elke training: vul de metadata in (training‑id, functie, activiteit, onderwerp,
+          modulelocatie, bestandstype) en plak de <strong>URL</strong> van de PDF uit de bibliotheek.
+        </p>
+
+        <div class="flow-arrow" aria-hidden="true"></div>
+      </article>
+
+      <!-- STAP 4: CONTENT NAAR BIBLIOTHEEK -->
+      <article class="step">
+        <div class="step-number">Stap 4</div>
+        <div class="step-header">Materiaal klaarzetten voor bibliotheek</div>
+        <p class="tagline">Transformeer bronbestanden naar gestandaardiseerde PDF’s</p>
+
+        <ol style="font-size:0.8rem; padding-left:1.1rem; margin-top:0.4rem;">
+          <li>Kopieer het materiaal uit de werkmap naar de map <em>content bibliotheek jaar</em>.</li>
+          <li>Hernoem de bestanden volgens de afgesproken bestandsnaamconventie.</li>
+          <li>Maak van elk bronbestand een <strong>PDF‑versie</strong>.</li>
+          <li>Plaats de PDF in de juiste map in de contentbibliotheek.</li>
+        </ol>
+
+        <p class="hint">
+          Maak één URL per trainingscontent en registreer die in de Excel:
+          dat Excel‑bestand is het <strong>bibliotheekregister</strong>.
+        </p>
+
+        <div class="flow-arrow" aria-hidden="true"></div>
+      </article>
+
+      <!-- STAP 5: CONTENTBIBLIOTHEEK -->
+      <article class="step step--library">
+        <div class="step-number">Stap 5</div>
+        <div class="step-header">Content Anetwspring bibliotheek</div>
+        <p class="tagline">“Single source of truth” voor trainingscontent</p>
+
+        <p><strong>Naam map</strong><br/>
+          <span class="label">content anetwspring bibliotheek</span>
+        </p>
+        <p class="meta">
+          <strong>Locatie</strong> SharePoint<br/>
+          <strong>Toegangsrechten</strong> kopiëren, niet bewerken
+        </p>
+
+        <p style="margin-top:0.5rem;">Voorbeeld inhoud:</p>
+        <ul style="font-size:0.8rem; padding-left:1.1rem; margin-top:0.1rem;">
+          <li>document&nbsp;1.pdf</li>
+          <li>document&nbsp;2.pdf</li>
+          <li>document&nbsp;3.pdf</li>
+        </ul>
+
+        <p class="hint">
+          LOCK VERSIE DOOR DOC MANAGEMENT.  
+          Wil je iets bewerken? Maak een kopie en noteer wie je bent en waar je aan werkt.
+        </p>
+      </article>
+
+      <!-- STAP 6: WERKAFSPRAKEN -->
+      <article class="step step--rules">
+        <div class="step-number">Stap 6</div>
+        <div class="step-header">Werkinstructies &amp; naamgeving</div>
+        <p class="tagline">Zorgen voor consistente kwaliteit</p>
+
+        <ul style="font-size:0.8rem; padding-left:1.1rem; margin-top:0.4rem;">
+          <li>Geef elk document de juiste naam volgens de template/bestandsnaamconventie.</li>
+          <li>Sla de PDF op in de map <em>content anetwspring bibliotheek</em>.</li>
+          <li>Kopieer de URL naar het Excel‑register in de werkmap metadata.</li>
+          <li>Gebruik altijd de laatst goedgekeurde versie uit de bibliotheek.</li>
+        </ul>
+
+        <p class="hint">
+          “GOOD PRACTICE: altijd werken vanuit het Excel‑register en de bibliotheek, nooit direct uit het archief.”
+        </p>
+      </article>
+
+      <!-- LEGEND -->
+      <article class="step step--legend">
+        <div class="step-header">Legenda &amp; iconen</div>
+        <p class="tagline">Kleuren zoals in de oorspronkelijke afbeelding</p>
+
+        <div class="legend-box">
+          <span class="legend-color map-green"></span> Map (eindbibliotheek)
+        </div><br/>
+        <div class="legend-box">
+          <span class="legend-color map-main"></span> Map (werkmap / archief)
+        </div><br/>
+        <div class="legend-box">
+          <span class="legend-color map-sub"></span> Submap
+        </div><br/>
+        <div class="legend-box">
+          <span class="legend-color excel"></span> Excel‑bestand met metadata
+        </div>
+
+        <p style="font-size:0.75rem; margin-top:0.6rem;">
+          De pijlen tonen de flow: <strong>archief → werkmap → Excel‑register → bibliotheek → gebruik.</strong>
+        </p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
