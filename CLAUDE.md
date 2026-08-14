@@ -169,7 +169,7 @@ Het oorspronkelijke patroon staat in `raw/_seed/karpathy-llm-wiki.md`. Bij twijf
 
 Wanneer een query of ingest leidt tot een **visuele deliverable** (HTML, slidedeck, infographic, PDF, poster, e-mail-template) die als Baak-output bedoeld is, geldt strict de canonieke huisstijl-spec:
 
-`C:/Users/arijj/baakie-orchestrator/context/organisatie/debaak-huisstijl.md`
+`../baakie-orchestrator/context/organisatie/debaak-huisstijl.md`
 
 Regels:
 
