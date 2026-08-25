@@ -1,4 +1,4 @@
-# Antifragile Knowledge Management: AI-Driven Frameworks, SME Digital Transformation, and Organizational Design Principles for Thriving Under Disruption (2023–2025)
+# Antifragile Knowledge Management- AI-Driven Frameworks, SME Digital Transformation, and Organizational Design Principles for Thriving Under Disruption (2023–2025)
 
 > Antifragile knowledge management represents a qualitative leap beyond resilience, deliberately engineering organizational systems—powered by AI, RAG pipelines, distributed ownership, and dynamic documentation—to grow stronger with each disruption rather than merely recovering from it. Empirical evidence from start-ups, SMEs, ERP environments, and manufacturing confirms that intellectual capital, absorptive capacity, and digital capability are measurable antecedents of antifragile performance gains. Enterprises that integrate these KM principles with risk management, agile culture, and AI governance can convert volatility from a liability into a compounding strategic asset.
 
