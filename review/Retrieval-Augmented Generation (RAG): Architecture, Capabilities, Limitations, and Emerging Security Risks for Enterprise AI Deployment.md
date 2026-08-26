@@ -1,4 +1,4 @@
-# Retrieval-Augmented Generation (RAG): Architecture, Capabilities, Limitations, and Emerging Security Risks for Enterprise AI Deployment
+# Retrieval-Augmented Generation (RAG)- Architecture, Capabilities, Limitations, and Emerging Security Risks for Enterprise AI Deployment
 
 > RAG is a widely adopted technique that enhances LLMs by grounding their responses in external, updatable knowledge sources—reducing hallucinations and retraining costs while enabling source transparency. However, RAG is not a complete solution: LLMs can still misinterpret retrieved context, and the system is vulnerable to 'RAG poisoning,' where misleading or manipulated sources corrupt outputs. Organizations deploying RAG must treat retrieval quality, source vetting, and adversarial data injection as critical risk vectors alongside the technology's operational benefits.
 
