@@ -1,4 +1,4 @@
-# Antifragility in Organizational Learning Transfer: Emerging Scientific Insights and Enterprise Applications (2024–2026)
+# Antifragility in Organizational Learning Transfer- Emerging Scientific Insights and Enterprise Applications (2024–2026)
 
 > Organizations that embed antifragility into their learning and transfer systems—treating disruptions as data, failures as feedback, and volatility as a catalyst—outperform those that merely seek resilience by generating measurable capability gains from each shock. Validated tools such as the antifragility-at-work scale and the DENSER matrix, alongside enterprise practices in supply chain, manufacturing, and DevOps, confirm that structural diversity, redundancy, modular design, and inclusive leadership are the operative levers. For enterprise leaders, the actionable imperative is to redesign learning transfer systems—integrating formal, informal, and AI-enabled modalities under explicit antifragile governance—so that every disruption accelerates, rather than interrupts, organizational capability growth.
 
