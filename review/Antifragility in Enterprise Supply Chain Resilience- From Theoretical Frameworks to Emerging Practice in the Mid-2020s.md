@@ -1,4 +1,4 @@
-# Antifragility in Enterprise Supply Chain Resilience: From Theoretical Frameworks to Emerging Practice in the Mid-2020s
+# Antifragility in Enterprise Supply Chain Resilience- From Theoretical Frameworks to Emerging Practice in the Mid-2020s
 
 > Most enterprises remain fragile or merely resilient—Gartner survey data shows only 9% of supply chain professionals expect to gain revenue from uncertainty—yet a maturing body of scientific work and practitioner frameworks now provides concrete capability blueprints, quantitative models, and digital enablers to bridge that gap. True antifragility requires organizations to move beyond risk mitigation toward structured experimentation, post-disruption learning loops, and probabilistic planning that treats volatility as a source of strategic information and competitive advantage. Leaders who invest in multi-sourcing ecosystems, AI-driven visibility, digital twins, and cultures that tolerate informed risk-taking can position their supply networks to improve performance precisely because of disruption, not merely in spite of it.
 
