@@ -1,5 +1,3 @@
-# Log
-
 Chronologisch, append-only. Elke entry begint met `## [JJJJ-MM-DD] <operatie> | <reikwijdte>` zodat `grep "^## \[" log.md | tail -N` werkt.
 
 Operaties: `ingest`, `query`, `lint`, `schema`.
@@ -118,3 +116,11 @@ Zie `templates/_log-entry.md` voor het body-formaat.
 - Anewspring-specifieke skeleton-vereisten (SCORM/xAPI?)
 - Versiebeheer Anewspring vs. SharePoint-bibliotheek
 - URL-registratie van Anewspring-publicaties in Excel-register
+
+## [2026-09-24] schema | sync via Obsidian Git
+
+**Door:** mens + LLM (Claude, Cowork).
+
+**Wijziging:** Obsidian Git ingesteld op DESKTOP-NJV6J3J: pull bij opstarten, elke 10 minuten automatisch pull en commit-and-sync.
+
+**Volgende stap:** dezelfde instellingen op de andere computer.
