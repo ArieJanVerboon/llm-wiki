@@ -15,13 +15,12 @@ files it into `raw/`. No AI is involved — it captures exactly what you typed.
 
 ## 2. Research a topic with AI — Flow B
 
-Send the factory a topic from your PC:
+Add a new row to the **Research Topics** tab of the same Google Sheet. Columns:
 
-```powershell
-Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/perplexity-research" -Method Post -ContentType "application/json" -Body '{"topic":"your topic here"}'
-```
+- `topic` or `prompt` (one is required; `prompt` replaces the default research question)
+- optional: `url`, `section`, `subsection`, `tags` (comma-separated)
 
-Perplexity runs deep research, a Claude confidence gate scores the result, and it
+n8n checks the tab every minute. Perplexity runs deep research, a Claude confidence gate scores the result, and it
 is filed automatically:
 
 - score **>= 80** -> `raw/`
@@ -29,8 +28,7 @@ is filed automatically:
 - score **< 60** -> discarded
 - unparseable -> `03_Failed/`
 
-Deep research can take a few minutes. You can also pass `"url"` instead of
-`"topic"` for de-duplication on a source link.
+Deep research can take a few minutes. Topics already in Zotero are skipped.
 
 ## 3. Publish an approved report + rebuild the site — Flow C
 
@@ -46,7 +44,7 @@ $body = @{
   subsection = "Supply Chains"
   tags       = @("risk","logistics")
 } | ConvertTo-Json
-Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/rebuild-index" -Method Post -ContentType "application/json" -Body $body
+Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/publish-document" -Method Post -ContentType "application/json" -Body $body
 ```
 
 Flow C builds a house-styled HTML page and a PDF, commits both to
