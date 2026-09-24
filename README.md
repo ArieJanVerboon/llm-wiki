@@ -12,8 +12,8 @@ others.
 | Flow | Trigger | What it does | Writes to |
 |------|---------|--------------|-----------|
 | **A — Manual Capture** | New row in the Google Sheet | LLM-free capture of items you add by hand. Normalizes, de-duplicates against Zotero, then files the item. | `raw/` + Zotero (`ingested:raw`) |
-| **B — Perplexity Research Capture** | Webhook `POST /webhook/perplexity-research` | Runs Perplexity deep research on a topic, scores it with a Claude confidence gate, and routes by confidence. | `raw/` / `review/` / `03_Failed/` + Zotero |
-| **C — Publish & Index Rebuild** | Webhook `POST /webhook/rebuild-index` | Turns an approved payload into a house-styled HTML page + PDF, then rebuilds `manifest.json` and `index.html`. | `public/published/`, `public/manifest.json`, `public/index.html` |
+| **B — Perplexity Research Capture** | New row in the **Research Topics** tab of the Research Ingestion Sheet (checked every minute) | Runs Perplexity deep research on a topic, scores it with a Claude confidence gate, and routes by confidence. | `raw/` / `review/` / `03_Failed/` + Zotero |
+| **C — Publish & Index Rebuild** | Webhook `POST /webhook/publish-document` (publish) or `POST /webhook/rebuild-index` (index only) | Turns an approved payload into a house-styled HTML page + PDF, then rebuilds `manifest.json` and `index.html`. | `public/published/`, `public/manifest.json`, `public/index.html` |
 
 ### Confidence gate (Flow B)
 
@@ -95,5 +95,14 @@ trigger each flow.
 
 ## Deployment
 
-Cloudflare is connected to this repo and auto-deploys on every commit. Build
-output directory: `public`. No build command (static HTML).
+Cloudflare Workers Builds is connected to this repo and auto-deploys on every
+commit to `master`. Deploy command:
+
+```
+npx wrangler deploy --assets ./public --name llm-wiki --compatibility-date 2026-09-21
+```
+
+Only `public/` is served. Everything else in the repo (`raw/`, `review/`,
+`wiki/`, `.obsidian/`, the `.md` files) stays private. Until 2026-09-24 the
+whole repo was served by mistake; do not change the deploy command back to a
+plain `npx wrangler deploy`.
