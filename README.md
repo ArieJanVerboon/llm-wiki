@@ -130,7 +130,7 @@ section/tags, reorder, etc.), then trigger a rebuild so `public/index.html`
 regenerates:
 
 ```powershell
-Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/rebuild-index" -Method Post -ContentType "application/json" -Body '{"trigger":"manual-rebuild"}'
+Invoke-RestMethod -Uri "<JOUW-N8N-URL>/webhook/rebuild-index" -Method Post -ContentType "application/json" -Body '{"trigger":"manual-rebuild"}'
 ```
 
 The response reports `published_count` and `entry_count` and confirms the
