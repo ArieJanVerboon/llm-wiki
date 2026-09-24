@@ -196,8 +196,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0844a50cf910ae9d",
+  "active": "53b2aa744ee66a2e",
   "lastOpenFiles": [
+    "MOCs/MOC.md",
+    "MOCs",
     "index.md",
     "CLAUDE.md",
     "2026-05-26.md",
@@ -229,7 +231,6 @@
     "index.md.tmp.35692.3b08b66e9c94",
     "wiki/topics/baakie-pipeline.md.tmp.35692.f9621603b47c",
     "wiki/concepts/baakiekwal-werkwijze.md.tmp.35692.17849e5f89a0",
-    "wiki/concepts/naamgevingsconventie.md.tmp.35692.62c6464aad7a",
     "wiki/concepts/wetenschappelijke-kwaliteit.md",
     "wiki/concepts/sharepoint-contentflow.md",
     "wiki/entities/baakieprint.md",
