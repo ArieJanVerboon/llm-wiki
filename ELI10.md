@@ -54,12 +54,12 @@ on. Your computer is just for reading and editing the files.
 How to use it every day
 To make a new report: send the factory a topic. From your PC:
 
-Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/research-ingest" -Method Post -ContentType "application/json" -Body '{"topic":"your topic here"}'
+Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/research-ingest" -Method Post -ContentType "application/json" -Headers @{ 'X-Webhook-Token' = $env:N8N_WEBHOOK_TOKEN } -Body '{"topic":"your topic here"}'
 Wait a bit, and the report appears on your website.
 
 To rebuild the index (if you tidied the master list by hand):
 
-Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/rebuild-index" -Method Post -ContentType "application/json" -Body '{"trigger":"manual-rebuild"}'
+Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/rebuild-index" -Method Post -ContentType "application/json" -Headers @{ 'X-Webhook-Token' = $env:N8N_WEBHOOK_TOKEN } -Body '{"trigger":"manual-rebuild"}'
 To keep your two computers in sync — the golden rule:
 
 ☀️ Before you start working: git pull (get the newest files)
@@ -85,3 +85,4 @@ keys stay inside n8n's credential store, never in the folder.
 Don't run git reset --hard casually. It throws away unsaved changes.
 It's only safe when you know you have nothing local to lose.
 
+> **Sleutel nodig:** de webhooks werken alleen met je geheime sleutel (`X-Webhook-Token`). Hoe je die eenmalig instelt, staat onderaan **HOWTO.md** onder "Webhook-sleutel".
