@@ -44,7 +44,7 @@ $body = @{
   subsection = "Supply Chains"
   tags       = @("risk","logistics")
 } | ConvertTo-Json
-Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/publish-document" -Method Post -ContentType "application/json" -Body $body
+Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/publish-document" -Method Post -ContentType "application/json" -Headers @{ 'X-Webhook-Token' = $env:N8N_WEBHOOK_TOKEN } -Body $body
 ```
 
 Flow C builds a house-styled HTML page and a PDF, commits both to
@@ -56,7 +56,7 @@ If you tidied `public/manifest.json` by hand and just want the index
 regenerated (no new document):
 
 ```powershell
-Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/rebuild-index" -Method Post -ContentType "application/json" -Body '{"trigger":"manual-rebuild"}'
+Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/rebuild-index" -Method Post -ContentType "application/json" -Headers @{ 'X-Webhook-Token' = $env:N8N_WEBHOOK_TOKEN } -Body '{"trigger":"manual-rebuild"}'
 ```
 
 ## Keeping computers in sync — the golden rule
@@ -66,3 +66,19 @@ Invoke-RestMethod -Uri "https://inspreadables.app.n8n.cloud/webhook/rebuild-inde
 
 Think of it like a shared document: always grab the latest before typing, always
 save when done. Full detail in **SYNC.md**.
+
+## Webhook-sleutel
+
+Alle webhooks vereisen de header `X-Webhook-Token` (n8n Header Auth). Zet de sleutel eenmalig per computer als Windows-omgevingsvariabele (sleutel staat in de wachtwoordmanager onder `n8n-webhook-token`):
+
+```powershell
+[Environment]::SetEnvironmentVariable('N8N_WEBHOOK_TOKEN', '<sleutel>', 'User')
+```
+
+Open daarna een nieuw PowerShell- of Git Bash-venster (in VS Code: VS Code herstarten). Controle: `$env:N8N_WEBHOOK_TOKEN.Length` (PowerShell) of `echo ${#N8N_WEBHOOK_TOKEN}` (Git Bash) moet `40` geven.
+
+Git Bash-variant van een aanroep:
+
+```bash
+curl -X POST "https://inspreadables.app.n8n.cloud/webhook/rebuild-index" -H "Content-Type: application/json" -H "X-Webhook-Token: $N8N_WEBHOOK_TOKEN" -d '{"trigger":"manual-rebuild"}'
+```
