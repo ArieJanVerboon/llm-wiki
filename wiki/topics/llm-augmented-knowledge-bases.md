@@ -1,8 +1,8 @@
 ---
 type: topic
 created: 2026-05-20
-updated: 2026-05-20
-sources: 1
+updated: 2026-09-29
+sources: 2
 tags: [llm, knowledge-management, pkm, meta]
 thesis_status: opening
 ---
@@ -26,6 +26,7 @@ _Stand per 2026-05-20 — gebaseerd op één bron ([[wiki/sources/karpathy-llm-w
 - Op moderate schaal (~100 bronnen, honderden pagina's) volstaat een `index.md` voor navigatie; geen embeddings vereist. — [[wiki/sources/karpathy-llm-wiki]].
 - Goede query-antwoorden moeten terug-gearchiveerd worden of ze verdampen. — [[wiki/sources/karpathy-llm-wiki]].
 - Het patroon is geestverwant aan Vannevar Bush's Memex en lost diens onderhoudsvraag op. — [[wiki/sources/karpathy-llm-wiki]] via [[wiki/concepts/memex]].
+- **In de praktijk breekt het patroon niet op de wiki-laag maar op de aanvoer.** De eerste feitelijke instantie in deze omgeving ([[wiki/topics/research-flow]]) is machinaal tot en met het bronnenarchief en handwerk daarna. Het bookkeeping dat de LLM overneemt was nooit het knelpunt; het knelpunt is dat er niets bij de LLM wordt afgeleverd. — [[wiki/sources/linkermenu-reeks]].
 
 ## Wat we vermoeden
 
@@ -54,6 +55,7 @@ _Stand per 2026-05-20 — gebaseerd op één bron ([[wiki/sources/karpathy-llm-w
 ## Evolutie van de these
 
 - 2026-05-20 — these geopend op basis van [[wiki/sources/karpathy-llm-wiki]].
+- 2026-09-29 — tweede bron ([[wiki/sources/linkermenu-reeks]]) voegt geen theorie toe maar een **meting**: het patroon staat er, de operaties werken, en er komt vrijwel niets binnen. De these dat de LLM het bookkeeping overneemt en de mens zich op curatie richt, veronderstelt stilzwijgend dat die curatie gebeurt. Dat is de aanname die nu getoetst wordt en waar het knelt. Zie [[wiki/topics/research-flow]].
 
 ## Open vragen
 
@@ -64,5 +66,5 @@ _Stand per 2026-05-20 — gebaseerd op één bron ([[wiki/sources/karpathy-llm-w
 
 ## Cross-references
 
-- Verwante onderwerpen: nog geen — dit is het eerste topic.
-- Bronnen die dit onderwerp raken: [[wiki/sources/karpathy-llm-wiki]] (1/1).
+- Verwante onderwerpen: [[wiki/topics/research-flow]] — de eerste concrete instantie van dit patroon in de eigen omgeving.
+- Bronnen die dit onderwerp raken: [[wiki/sources/karpathy-llm-wiki]], [[wiki/sources/linkermenu-reeks]] (2/2).

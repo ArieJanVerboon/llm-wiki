@@ -36,6 +36,16 @@ De scheiding is strikt: de LLM bewerkt nooit `raw/`. De mens bewerkt zelden `wik
 ## Voorbeelden
 
 - In dit wiki: `raw/` bevat de gist en eventuele toekomstige bronnen; `wiki/` bevat alle door de LLM gegenereerde pagina's (waaronder deze); `CLAUDE.md` is het schemabestand. — [[wiki/sources/karpathy-llm-wiki]].
+- De drie lagen zijn ook **letterlijk zichtbaar** in de kluisboom van [[wiki/entities/obsidian]]: `raw/`, `wiki/` en `CLAUDE` staan naast elkaar in de bestandsverkenner. Wie de kluis opent, ziet de architectuur voordat hij een pagina leest. — [[wiki/sources/linkermenu-reeks]] (Obsidian).
+
+## De grens van `raw/` in de praktijk
+
+`raw/` is het **aanlandpunt** van alles wat van buiten komt, en dat maakt de laag kwetsbaar op een manier die de definitie niet laat zien: er is geen mechanisme dat bronnen *naar* `raw/` brengt. In [[wiki/topics/research-flow]] loopt een geautomatiseerde keten tot in het bronnenarchief en stopt daar; de laatste stap naar `raw/` is handwerk. De immutabiliteit van de laag is dus goed geregeld, het vullen ervan niet.
+
+Twee gevolgen die in deze wiki zijn vastgesteld:
+
+- Bronnen die buiten de repo staan zijn geen bronnen. De twintig pagina's van [[wiki/sources/linkermenu-reeks]] bestonden twee maanden alleen als gepubliceerde artifacts op claude.ai — buiten git, buiten back-up — tot ze op 2026-09-29 naar `raw/` zijn gehaald.
+- `raw/` is immutabel, dus een fout in een bron wordt niet gerepareerd maar **gecorrigeerd in de wiki-laag**. Voorbeeld: het onjuiste kluispad in [[wiki/entities/obsidian]].
 
 ## Verwarrend te onderscheiden van
 
@@ -49,4 +59,5 @@ De scheiding is strikt: de LLM bewerkt nooit `raw/`. De mens bewerkt zelden `wik
 
 - Onderdeel van: [[wiki/concepts/llm-wiki-pattern]]
 - Operationaliseert: [[wiki/concepts/ingest-query-lint]]
-- Genoemd in: [[wiki/sources/karpathy-llm-wiki]], [[wiki/topics/llm-augmented-knowledge-bases]]
+- Genoemd in: [[wiki/sources/karpathy-llm-wiki]], [[wiki/sources/linkermenu-reeks]], [[wiki/topics/llm-augmented-knowledge-bases]], [[wiki/topics/research-flow]]
+- Zichtbaar gemaakt door: [[wiki/entities/obsidian]]

@@ -11,7 +11,8 @@ _(nog leeg — `wiki/overview.md` wordt aangemaakt zodra er meerdere topics zijn
 ## Topics
 
 - [[wiki/topics/baakie-pipeline]] — 2026-05-20 — Architectuur en werking van De Baak's document-managementpijplijn: drie agenten (baakiedoc → baakiekwal → baakieprint) rond een centraal Excel-register en single-source-of-truth contentbibliotheek. *(3 bronnen — thesis_status: opening)*
-- [[wiki/topics/llm-augmented-knowledge-bases]] — 2026-05-20 — Meta-topic over hoe je een persoonlijke kennisbank effectief door een LLM laat onderhouden. *(1 bron — thesis_status: opening)*
+- [[wiki/topics/llm-augmented-knowledge-bases]] — 2026-09-29 — Meta-topic over hoe je een persoonlijke kennisbank effectief door een LLM laat onderhouden. *(2 bronnen — thesis_status: opening)*
+- [[wiki/topics/research-flow]] — 2026-09-29 — Hoe onderzoek van vraag tot kennisbank loopt: machinaal tot in het bronnenarchief, handwerk daarna. Zes benoemde gaten, waaronder een weektaak die misschien niet draait. *(1 bron — thesis_status: opening)*
 
 ## Entities
 
@@ -19,9 +20,14 @@ _(nog leeg — `wiki/overview.md` wordt aangemaakt zodra er meerdere topics zijn
 - [[wiki/entities/baakiedoc]] — 2026-05-20 — Eerste schakel Baakie-pipeline: documentmanagement, taxonomie, naamgeving, register. *(2 bronnen — type: agent)*
 - [[wiki/entities/baakiekwal]] — 2026-05-20 — Tweede schakel Baakie-pipeline: assessment op auteursrecht, bronvermelding, wetenschappelijke kwaliteit. *(1 bron — type: agent)*
 - [[wiki/entities/baakieprint]] — 2026-05-20 — Derde schakel Baakie-pipeline: publicatie-output in 5 formats (doc/pdf/pptx/responsive-HTML/Anewspring) op basis van skeletons. *(1 bron — type: agent)*
+- [[wiki/entities/clickup]] — 2026-09-29 — Planlaag van de research-flow: één Space, zeven taken allemaal prioriteit High zonder eigenaar of datum; niet gekoppeld aan n8n. *(1 bron — type: product)*
 - [[wiki/entities/de-baak]] — 2026-05-20 — Nederlandse organisatie voor training, ontwikkeling en leiderschap sinds 1947; opdrachtgever van de Baakie-pipeline. *(2 bronnen — type: organization)*
 - [[wiki/entities/karpathy]] — 2026-05-20 — Andrej Karpathy: AI-onderzoeker/educator, auteur van het LLM Wiki-patroon. *(1 bron — type: person)*
+- [[wiki/entities/n8n]] — 2026-09-29 — Het koppelwerk: 13 workflows, vier Antifragile-flows op Published, en de enige benoemde schakel van onderzoek naar archief. *(1 bron — type: product)*
+- [[wiki/entities/obsidian]] — 2026-09-29 — Leesbril op dit wiki, versie 1.13.7, sync via GitHub. ⚠ de bron noemt een kluispad dat niet bestaat. *(1 bron — type: product)*
+- [[wiki/entities/perplexity]] — 2026-09-29 — Waar het onderzoek gebeurt: Enterprise Pro, sessies *docuresearch* en *AI News Monitoring*. Google Drive-koppeling verloopt 31-10-2026. *(1 bron — type: product)*
 - [[wiki/entities/vannevar-bush]] — 2026-05-20 — Vannevar Bush: ingenieur (1890–1974), bedacht de Memex in *As We May Think* (1945). *(1 bron — type: person)*
+- [[wiki/entities/zotero]] — 2026-09-29 — Bronnenarchief en eindpunt van de automatisering: 5 bronnen, geen collecties, machinetags uit een n8n-flow. *(1 bron — type: product)*
 
 ## Concepts
 
@@ -43,6 +49,7 @@ _(nog leeg — `wiki/overview.md` wordt aangemaakt zodra er meerdere topics zijn
 - [[wiki/sources/debaak-dm-phase1]] — 2026-05-20 — De Baak Document Management Proces Fase 1: 8 weken, 3 stappen, naamgevingsconventie incl. voorbeeld `PA-161_ho-in-ijsberg_m1p2.docx`. *(intern De Baak, in officiële huisstijl)*
 - [[wiki/sources/documentbeheer-infographic]] — 2026-05-20 — Infographic SharePoint-contentflow: 6 stappen archief → werkmap → Excel-register → klaarzetten → bibliotheek → werkinstructies. *(intern De Baak)*
 - [[wiki/sources/auteursrecht-wetenschappelijk-werk]] — 2026-05-20 — Auteursrecht op wetenschappelijk werk: drie criteria, werkgeversauteursrecht, Taverne-amendement, AI-implicaties. *(ariejanverboon.github.io/baak/auteursrecht/)*
+- [[wiki/sources/linkermenu-reeks]] — 2026-09-29 — Twintig oriëntatiepagina's over de linkermenu's van twintig gereedschappen; meetdata 2026-09-24 en 2026-09-28, drie provenance-gradaties. De houdbare laag zit in de *Bij jou*-waarnemingen. *(raw/linkermenu/, uit gepubliceerde artifacts)*
 
 ## Comparisons
 

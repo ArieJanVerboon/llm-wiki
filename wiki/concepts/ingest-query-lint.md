@@ -33,6 +33,15 @@ De drie kern-operaties die een LLM op een wiki uitvoert: nieuwe bronnen verwerke
 ## Voorbeelden
 
 - Deze pagina is zelf het resultaat van de eerste ingest in dit wiki — zie [[wiki/sources/karpathy-llm-wiki]] en log-entry 2026-05-20.
+- De ingest is inmiddels **de beschreven werkwijze buiten dit wiki**: de Obsidian-pagina van [[wiki/sources/linkermenu-reeks]] instrueert nieuwe bronnen in `raw/` te zetten en Claude Code een ingest te laten doen. De operatie is dus niet alleen een conventie in `CLAUDE.md` maar ook wat AV elders als proces heeft vastgelegd.
+- Diezelfde bron noemt de **grafiekweergave** van [[wiki/entities/obsidian]] expliciet als aanvulling op lint: losse punten in de grafiek zijn de wees-pagina's die lint zoekt. Eén handmatige blik levert dus een deel van wat lint moet vaststellen.
+
+## Waar de ingest in de praktijk op vastloopt
+
+Bij de ingest van 2026-09-29 bleek de operatie op twee punten te wringen met wat er werkelijk aankomt:
+
+- **De bron is soms een reeks, niet een bron.** Twintig pagina's met één skelet en één onderwerp-per-stuk lenen zich niet voor twintig samenvattingspagina's; dat zou twintig verouderende pagina's opleveren. Verwerkt als *één* bron met feiten over entiteiten — zie [[wiki/sources/linkermenu-reeks]].
+- **De aanvoer naar `raw/` is niet geautomatiseerd.** Zie [[wiki/topics/research-flow]]: de keten stopt in het bronnenarchief, één stap vóór de ingest. De ingest is klaar om te werken, maar er wordt niets bij hem afgeleverd.
 
 ## Verwarrend te onderscheiden van
 
@@ -52,4 +61,5 @@ De drie kern-operaties die een LLM op een wiki uitvoert: nieuwe bronnen verwerke
 
 - Onderdeel van: [[wiki/concepts/llm-wiki-pattern]]
 - Werkt op: [[wiki/concepts/three-layer-architecture]]
-- Genoemd in: [[wiki/sources/karpathy-llm-wiki]], [[wiki/topics/llm-augmented-knowledge-bases]]
+- Genoemd in: [[wiki/sources/karpathy-llm-wiki]], [[wiki/sources/linkermenu-reeks]], [[wiki/topics/llm-augmented-knowledge-bases]], [[wiki/topics/research-flow]]
+- Laatste stap van: [[wiki/topics/research-flow]]
