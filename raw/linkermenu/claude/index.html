@@ -1,0 +1,553 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Het linkermenu van Claude</title>
+<style>
+  :root {
+    --primary: #005ADC;
+    --secondary: #00A555;
+    --accent: #FFE100;
+    --bg: #F5F5EB;
+    --white: #FFFFFF;
+    --text: #1A1A2E;
+    --grey-mid: #4A5568;
+    --primary-d: #003A8C;
+    --secondary-d: #004D26;
+    --tint: #F0F5FF;
+    --line: rgba(0, 90, 220, .14);
+    --shadow: 0 4px 20px rgba(0, 90, 220, .12);
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, p, ul, dl, dd { margin: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-d) 100%);
+    color: var(--white);
+    padding-block: 64px 72px;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .hero .wrap { display: flex; flex-direction: column; gap: 18px; }
+  .eyebrow {
+    align-self: flex-start;
+    background: rgba(255, 225, 0, .12); color: var(--accent);
+    border: 1px solid rgba(255, 225, 0, .35);
+    border-radius: 100px; padding: 5px 16px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 2.8rem); font-weight: 900; letter-spacing: -.01em; line-height: 1.1; max-width: 22ch; }
+  .hero-rule { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--secondary)); border-radius: 2px; }
+  .hero p { font-size: 1.1rem; max-width: 62ch; color: rgba(255, 255, 255, .88); }
+  .hero strong { color: var(--white); }
+
+  /* ---------- secties ---------- */
+  section.block { padding-block: 56px; }
+  section.block:nth-of-type(even) { background: var(--white); }
+  .sec-head { display: flex; flex-direction: column; gap: 10px; margin-block-end: 28px; max-width: 66ch; }
+  .eyebrow-content {
+    align-self: flex-start;
+    background: rgba(0, 90, 220, .07); color: var(--primary);
+    border: 1px solid rgba(0, 90, 220, .18);
+    border-radius: 100px; padding: 4px 14px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .sec-head h2 { font-size: clamp(1.5rem, 3.4vw, 1.9rem); font-weight: 700; color: var(--primary-d); }
+  .section-rule { width: 48px; height: 3px; background: var(--secondary); border-radius: 2px; }
+  .sec-head p { color: var(--grey-mid); font-size: 1.05rem; }
+
+  .ui {
+    display: inline-block;
+    font-weight: 700; font-size: .9em;
+    background: var(--tint); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 6px;
+    padding: 0 6px; white-space: nowrap;
+  }
+
+  /* ---------- kaart van het menu ---------- */
+  .map { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+  @media (min-width: 860px) { .map { grid-template-columns: 300px 1fr; } }
+  .rail {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 14px 12px; font-size: .92rem;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .rail .zone { display: flex; flex-direction: column; gap: 2px; padding: 8px 6px; border-radius: 10px; }
+  .rail .zone + .zone { border-top: 1px dashed var(--line); }
+  .rail .z-label {
+    font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--secondary-d); margin-block-end: 4px; display: flex; gap: 8px; align-items: center;
+  }
+  .z-letter {
+    display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); color: var(--white); font-size: .7rem; letter-spacing: 0;
+  }
+  .rail .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 6px; color: var(--text); }
+  .rail .row span:last-child { color: var(--grey-mid); font-size: .8rem; }
+  .rail .toggle { display: flex; gap: 6px; }
+  .rail .toggle b { flex: 1; text-align: center; padding: 3px 0; border-radius: 6px; border: 1px solid var(--line); font-size: .82rem; }
+  .rail .toggle b.on { background: var(--tint); color: var(--primary); }
+  .rail .muted { color: var(--grey-mid); }
+
+  .zones { display: flex; flex-direction: column; gap: 14px; }
+  .zone-note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 6px;
+  }
+  .zone-note h3 { font-size: 1.05rem; display: flex; gap: 10px; align-items: center; color: var(--primary-d); }
+  .zone-note p { color: var(--grey-mid); font-size: .96rem; }
+  .zone-note:nth-child(2) { border-top-color: var(--secondary); }
+  .zone-note:nth-child(3) { border-top-color: var(--primary-d); }
+  .zone-note:nth-child(4) { border-top-color: var(--secondary-d); }
+
+  /* ---------- menukaarten ---------- */
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    background: var(--white); border-radius: 16px;
+    border-top: 4px solid var(--primary); box-shadow: var(--shadow);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .card.g { border-top-color: var(--secondary); }
+  .card.d { border-top-color: var(--primary-d); }
+  .card.dg { border-top-color: var(--secondary-d); }
+  .card-head { padding: 1.1rem 1.3rem .8rem; display: flex; flex-direction: column; gap: 4px; }
+  .card-head h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+  .card-head .path { font-size: .8rem; color: var(--grey-mid); }
+  .card dl { padding: .2rem 1.3rem 1.2rem; display: flex; flex-direction: column; gap: 12px; }
+  .card dt {
+    font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--primary); margin-block-end: 3px;
+  }
+  .card.g dt { color: var(--secondary-d); }
+  .card dd { font-size: .95rem; line-height: 1.55; }
+  .card dd.tip { background: var(--bg); border-radius: 10px; padding: 8px 12px; color: var(--text); }
+  .card ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 3px; }
+
+  /* ---------- tabel ---------- */
+  .table-wrap { overflow-x: auto; border-radius: 16px; box-shadow: var(--shadow); background: var(--white); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .95rem; }
+  thead { background: var(--primary); color: var(--white); }
+  th, td { text-align: left; padding: 11px 16px; vertical-align: top; }
+  th { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+  tbody tr:nth-child(odd) { background: var(--white); }
+  tbody tr:nth-child(even) { background: var(--tint); }
+  td:first-child { font-weight: 700; white-space: nowrap; color: var(--primary-d); }
+
+  /* ---------- keuzelijst ---------- */
+  .picks { display: flex; flex-direction: column; gap: 1px; background: var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .pick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding: 14px 20px; background: var(--white); }
+  .pick-when { flex: 1 1 280px; min-width: 0; }
+  .pick-what { font-weight: 700; color: var(--primary); }
+
+  .note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--secondary);
+    padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 8px; max-width: 72ch;
+  }
+  .note h3 { font-size: 1.05rem; color: var(--secondary-d); }
+  .note p { color: var(--grey-mid); }
+
+  /* ---------- footer ---------- */
+  .footer { position: relative; background: var(--primary); color: var(--white); padding-block: 44px 40px; overflow: hidden; }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .footer::after {
+    content: ""; position: absolute; top: 0; right: 0;
+    border-style: solid; border-width: 0 180px 180px 0;
+    border-color: transparent rgba(255, 255, 255, .07) transparent transparent;
+  }
+  .footer .wrap { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; }
+  .footer .brand { font-weight: 900; font-size: 1.1rem; }
+  .footer .desc { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .78); }
+  .footer p { font-size: .88rem; color: rgba(255, 255, 255, .86); max-width: 74ch; }
+
+  code {
+    font-family: Consolas, "Courier New", monospace; font-size: .88em;
+    background: var(--bg); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; white-space: nowrap;
+  }
+  td:nth-child(2) { white-space: normal; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Oriëntatie · deel 2</span>
+    <h1>Het linkermenu van Claude</h1>
+    <div class="hero-rule"></div>
+    <p>Het vorige overzicht ging over <strong>welk venster</strong> je kiest. Dit gaat over <strong>wat je binnen dat venster ziet</strong>: de balk links, van boven naar beneden, met elk submenu opengeklapt. Alles hieronder is op 24 september 2026 in jouw eigen account nagelopen.</p>
+  </div>
+</header>
+
+<!-- ============ KAART ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Overzicht</span>
+      <h2>Vier zones, van boven naar beneden</h2>
+      <div class="section-rule"></div>
+      <p>De balk leest als een gebouw: bovenin de ingang, dan de vaste afdelingen, dan je eigen werk, en onderaan de receptie met je account.</p>
+    </div>
+
+    <div class="map">
+      <nav class="rail" aria-label="Schets van het linkermenu">
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">A</span>Kop</span>
+          <div class="row"><span>▢ Claude</span><span>paneel in/uit</span></div>
+          <div class="toggle"><b class="on">Chat &amp; Cowork</b><b>Code</b></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">B</span>Hoofdmenu</span>
+          <div class="row"><span>+ New</span><span>nieuw gesprek</span></div>
+          <div class="row"><span>Projects</span></div>
+          <div class="row"><span>Artifacts</span></div>
+          <div class="row"><span>Scheduled</span></div>
+          <div class="row"><span>Design</span></div>
+          <div class="row"><span>Customize</span></div>
+          <div class="row muted"><span>⌄ More</span><span>Edit sidebar…</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">C</span>Jouw werk</span>
+          <div class="row"><span>Scheduled</span><span>2 taken</span></div>
+          <div class="row"><span>Pinned</span><span>projecten + chats</span></div>
+          <div class="row"><span>Chats and tasks</span><span>View all</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">D</span>Voetbalk</span>
+          <div class="row"><span>AJ · Max ⌄</span><span>⤓ &nbsp;⌕</span></div>
+        </div>
+      </nav>
+
+      <div class="zones">
+        <div class="zone-note">
+          <h3><span class="z-letter">A</span>Kop: waar ben je?</h3>
+          <p>Het icoon links klapt de hele balk in. De schakelaar ernaast is de belangrijkste knop van het scherm: <span class="ui">Chat &amp; Cowork</span> of <span class="ui">Code</span>. Die keuze verandert wat er in de rest van de balk staat. Zie de sectie over Code-modus verderop.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">B</span>Hoofdmenu: de vaste afdelingen</h3>
+          <p>Zes vaste bestemmingen plus <span class="ui">More</span>. Achter More zit geen extra menu maar één optie, <span class="ui">Edit sidebar…</span>, waarmee je Projects, Artifacts, Scheduled, Design en Customize aan- of uitzet. New blijft altijd staan.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">C</span>Jouw werk: snelkoppelingen</h3>
+          <p>Drie lijsten die je eigen werk tonen: lopende geplande taken, wat je hebt vastgezet, en je recente chats en Cowork-taken. Elk item heeft een <span class="ui">⋮</span>-menu als je eroverheen beweegt.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">D</span>Voetbalk: jij en je account</h3>
+          <p>Je naam en plan openen het accountmenu met Settings. Het pijltje-omlaag gaat naar de apps en extensies, het vergrootglas doorzoekt al je gesprekken.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOOFDMENU ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone B</span>
+      <h2>Het hoofdmenu, item voor item</h2>
+      <div class="section-rule"></div>
+      <p>Per item: wat je er vindt, welke tabbladen en knoppen er zitten, en waar je het in de praktijk voor gebruikt.</p>
+    </div>
+
+    <div class="grid grid-3">
+
+      <article class="card">
+        <div class="card-head"><h3>New</h3><span class="path">claude.ai/new</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Een leeg invoerveld. Onder het veld kies je <span class="ui">Chat</span> of <span class="ui">Cowork</span>, het model (nu <em>Opus 5.5 · Medium</em>), dicteren of spraak.</dd></div>
+          <div><dt>Submenu's</dt><dd>De <span class="ui">+</span> in het invoerveld: bestanden, connectors en meer. Typ <span class="ui">/</span> om een skill aan te roepen.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Elk nieuw gesprek. Kies vóór je begint Chat of Cowork, want dat bepaalt of Claude een werkruimte krijgt.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card g">
+        <div class="card-head"><h3>Projects</h3><span class="path">claude.ai/cowork/projects</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Al je projecten als kaarten, met beschrijving en laatste activiteit. Jij hebt er onder meer <em>print-test</em>, <em>baakiedoc</em> en <em>pilots</em>.</dd></div>
+          <div><dt>Submenu's</dt><dd>Tabbladen <span class="ui">Your projects</span> en <span class="ui">Archived</span>. Knoppen: zoeken, sorteren, <span class="ui">New project</span>. Het punaise-icoon op een kaart zet het project vast in de balk.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Werk dat terugkomt. Een project bewaart instructies, bestanden en een eigen geheugen, zodat je niet elke keer opnieuw uitlegt.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card d">
+        <div class="card-head"><h3>Artifacts</h3><span class="path">claude.ai/artifacts</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Alle pagina's, decks, documenten en apps die Claude voor je maakte, per dag gegroepeerd. Bovenaan staat nu <em>Claude in vier vensters</em>.</dd></div>
+          <div><dt>Submenu's</dt><dd>Tabbladen <span class="ui">All</span>, <span class="ui">Yours</span>, <span class="ui">Shared with you</span>. Filter <span class="ui">All types</span>: Slides, Design, Design System, Other. Rij <em>Make something new</em>: Docs, Slides, Design. Bij hover op het menu-item: <span class="ui">New from a template</span>.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Je archief van opgeleverd werk terugvinden, delen of verder laten bewerken.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card dg">
+        <div class="card-head"><h3>Scheduled</h3><span class="path">claude.ai/scheduled-task</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Taken die Claude zelf op een tijdstip uitvoert. Jij hebt er vier; alleen de <em>Substack Digest</em> draait (elke donderdag 8:00) en vraagt aandacht.</dd></div>
+          <div><dt>Submenu's</dt><dd><span class="ui">Sort by</span> (volgende run), zoeken, <span class="ui">New task</span>. Onderaan voorbeeldtaken: Daily briefing, Inbox triage, Meeting prep, Weekly review.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Terugkerend werk zonder dat jij erbij bent. Let op het label <em>Requires Claude Desktop</em>: zo'n taak draait alleen als je computer aanstaat.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>Design</h3><span class="path">claude.ai/artifacts/design</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Hetzelfde archief als Artifacts, maar alleen visueel werk. Hier staat ook je <em>De Baak Design System</em>.</dd></div>
+          <div><dt>Submenu's</dt><dd>Tabbladen <span class="ui">Designs</span> en <span class="ui">Design systems</span>. Nieuw: Slides, Design, <span class="ui">Design in codebase</span> (opent de Code-tab), Design System. Plus een link naar de losse Claude Design-site.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Decks en ontwerpen in huisstijl. Maak ze vanuit je design system, dan hoeft Claude de kleuren niet te raden.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card g">
+        <div class="card-head"><h3>Customize</h3><span class="path">claude.ai/customize</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Alles wat Claude extra vaardigheden of toegang geeft.</dd></div>
+          <div><dt>Submenu's</dt><dd>
+            <ul>
+              <li><span class="ui">Skills</span>: werkinstructies. Jouw eigen <em>debaak-huisstijl</em> plus acht van Anthropic.</li>
+              <li><span class="ui">Connectors</span>: koppelingen. Bij jou: Claude Docs, GitHub, Gmail, Calendar, Drive, Miro.</li>
+              <li><span class="ui">Plugins</span>: bundels van skills en koppelingen per rol. Nog leeg.</li>
+            </ul>
+            Elk tabblad kent <span class="ui">Yours</span> en <span class="ui">Discover</span>. <span class="ui">+ Add</span> biedt: Upload skill, Create a skill, Create with Claude, intro-video.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Iets wat je vaak uitlegt vastleggen als skill, zoals je huisstijl al is.</dd></div>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOUW WERK ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone C</span>
+      <h2>Jouw lijsten en het ⋮-menu</h2>
+      <div class="section-rule"></div>
+      <p>De lijsten tonen je werk, niet de functies. Twee kleine tekens zeggen al veel: een projecticoon (gestapelde laden) is een project, een klein rondje is een losse chat of Cowork-taak.</p>
+    </div>
+
+    <div class="grid grid-3" style="margin-block-end: 28px">
+      <article class="card dg">
+        <div class="card-head"><h3>Scheduled</h3><span class="path">lijst in de balk</span></div>
+        <dl><div><dt>Toont</dt><dd>Je actieve geplande taken, met ritme (<em>Weekly</em>). Een geel stipje betekent dat een run je aandacht nodig heeft.</dd></div></dl>
+      </article>
+      <article class="card">
+        <div class="card-head"><h3>Pinned</h3><span class="path">lijst in de balk</span></div>
+        <dl><div><dt>Toont</dt><dd>Wat je zelf hebt vastgezet: eerst projecten, dan chats. Een project klap je open met het pijltje om de chats erin te zien.</dd></div></dl>
+      </article>
+      <article class="card g">
+        <div class="card-head"><h3>Chats and tasks</h3><span class="path">lijst in de balk</span></div>
+        <dl><div><dt>Toont</dt><dd>Recente chats en Cowork-taken door elkaar, nieuwste boven. <span class="ui">View all</span> onderaan opent de volledige geschiedenis.</dd></div></dl>
+      </article>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>⋮-optie</th><th>Wat het doet</th><th>Wanneer</th></tr></thead>
+        <tbody>
+          <tr><td>Pin / Unpin</td><td>Zet het item in of uit de Pinned-lijst.</td><td>Werk waar je deze week elke dag in zit.</td></tr>
+          <tr><td>Rename</td><td>Nieuwe titel.</td><td>Als de automatische titel niets zegt.</td></tr>
+          <tr><td>Change project</td><td>Verhuist een chat naar een project.</td><td>Een losse chat die toch bij baakiedoc hoort.</td></tr>
+          <tr><td>Remove from project</td><td>Maakt de chat weer los.</td><td>Na een verkeerde verhuizing.</td></tr>
+          <tr><td>Move up / Move down</td><td>Volgorde binnen Pinned.</td><td>Het belangrijkste bovenaan houden.</td></tr>
+          <tr><td>Mark as unread</td><td>Markeert een Cowork-taak als ongelezen.</td><td>Een resultaat dat je later nog wilt lezen.</td></tr>
+          <tr><td>Delete</td><td>Verwijdert het gesprek.</td><td>Alleen als je het echt kwijt wilt; dit gaat niet terug.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOETBALK ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone D</span>
+      <h2>Voetbalk en Settings</h2>
+      <div class="section-rule"></div>
+      <p>Klik op <span class="ui">AJ · Max</span>. Het menu dat opent is kort; de diepte zit achter Settings (sneltoets <span class="ui">Ctrl+Shift+,</span>).</p>
+    </div>
+
+    <div class="grid" style="margin-block-end: 28px">
+      <article class="card">
+        <div class="card-head"><h3>Accountmenu</h3><span class="path">klik op je naam</span></div>
+        <dl>
+          <div><dt>Items</dt><dd>
+            <ul>
+              <li><span class="ui">Settings</span>: alle instellingen, zie tabel.</li>
+              <li><span class="ui">Usage</span>: hoeveel van je limiet je gebruikt hebt.</li>
+              <li><span class="ui">Language</span>: taal van de interface.</li>
+              <li><span class="ui">Get help</span>: helpcentrum en support.</li>
+              <li><span class="ui">Upgrade plan</span> en <span class="ui">Get apps and extensions</span>.</li>
+              <li><span class="ui">Log out</span>.</li>
+            </ul>
+          </dd></div>
+        </dl>
+      </article>
+      <article class="card g">
+        <div class="card-head"><h3>Learn more ›</h3><span class="path">submenu in het accountmenu</span></div>
+        <dl>
+          <div><dt>Items</dt><dd>Claude Platform, About Anthropic, <span class="ui">Claude Academy</span> (cursussen), Usage policy, Privacy policy, Terms of service, Your privacy choices, en <span class="ui">Keyboard shortcuts</span> (<span class="ui">Ctrl+/</span>).</dd></div>
+          <div><dt>Tip</dt><dd class="tip">Keyboard shortcuts is de enige die je dagelijks helpt. De rest is naslag.</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Settings-pagina</th><th>Wat je er regelt</th></tr></thead>
+        <tbody>
+          <tr><td>General</td><td>Thema, lettertype in de chat, animaties, stem (taal, stijl, snelheid), meldingen bij klaar of bij geplande taken.</td></tr>
+          <tr><td>Account</td><td>Je profiel en inloggegevens.</td></tr>
+          <tr><td>Privacy</td><td>Wat Anthropic met je gesprekken mag doen.</td></tr>
+          <tr><td>Billing</td><td>Je Max-abonnement en facturen.</td></tr>
+          <tr><td>Capabilities</td><td>Hoe connectors laden, artifacts, AI-gestuurde artifacts, inline grafieken, code uitvoeren en bestanden maken.</td></tr>
+          <tr><td>Memory</td><td>Zoeken in eerdere chats, geheugen opbouwen uit chats, gevoelige onderwerpen, importeren uit andere AI's. Onderaan zie en bewerk je wat Claude over je weet.</td></tr>
+          <tr><td>Design systems</td><td>Je huisstijlen voor Slides en Design.</td></tr>
+          <tr><td>Claude Code</td><td>Instellingen voor de Code-kant van Claude.</td></tr>
+          <tr><td>Cowork</td><td>Welke computers Cowork mag gebruiken (bij jou drie keer Windows), of taken alleen lokaal blijven, en je voorkeursbrowser.</td></tr>
+          <tr><td>Claude in Chrome</td><td>De browserextensie en welke sites die mag gebruiken.</td></tr>
+          <tr><td>Skills · Connectors · Plugins</td><td>Dezelfde drie als onder Customize, hier als lijst.</td></tr>
+          <tr><td>API keys</td><td>Springt naar het Claude Platform voor ontwikkelaars.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CODE-MODUS ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Schakelaar op Code</span>
+      <h2>Dezelfde balk, andere inhoud</h2>
+      <div class="section-rule"></div>
+      <p>Zet je de schakelaar bovenin op <span class="ui">Code</span>, dan heet de kop <em>Claude Code</em> en wordt de balk korter en technischer.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card d">
+        <div class="card-head"><h3>Hoofdmenu</h3><span class="path">in Code-modus</span></div>
+        <dl><div><dt>Items</dt><dd><span class="ui">New</span>, <span class="ui">Artifacts</span>, <span class="ui">Routines</span>, <span class="ui">Customize</span>, <span class="ui">More</span>. Routines is hier wat Scheduled aan de Chat-kant is. Projects en Design vallen weg.</dd></div></dl>
+      </article>
+      <article class="card">
+        <div class="card-head"><h3>Recents-filter</h3><span class="path">schuifjes-icoon naast Recents</span></div>
+        <dl><div><dt>Opties</dt><dd><span class="ui">Status</span> (actief), <span class="ui">Environment</span>, <span class="ui">Group by</span>, <span class="ui">Sort by</span>, <span class="ui">Show empty groups</span>, <span class="ui">Show PR status</span>.</dd></div>
+        <div><dt>Tip</dt><dd class="tip">Zie je "No sessions match"? Dan staat de Status-filter op Actief. Klik <span class="ui">Show all sessions</span>.</dd></div></dl>
+      </article>
+      <article class="card g">
+        <div class="card-head"><h3>Onderaan</h3><span class="path">in Code-modus</span></div>
+        <dl><div><dt>Extra</dt><dd>Een uitnodiging <span class="ui">Try Claude Tag</span> (Claude in Slack) boven je accountbalk. Die kun je wegklikken.</dd></div></dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TERMINAL ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zonder menu</span>
+      <h2>En in de terminal?</h2>
+      <div class="section-rule"></div>
+      <p>Start je Claude Code in PowerShell met <code>claude</code>, dan is er geen linkermenu. Wat je in de balk aanklikt, typ je daar als commando, meestal een slash-commando in het invoerveld. Je werkt er op je eigen schijf, net als in de Code-tab van de desktop-app.</p>
+    </div>
+
+    <div class="table-wrap" style="margin-block-end: 28px">
+      <table>
+        <thead><tr><th>In het linkermenu</th><th>In de terminal</th></tr></thead>
+        <tbody>
+          <tr><td>Schakelaar Chat / Code</td><td>Bestaat niet: de terminal is altijd Code.</td></tr>
+          <tr><td>New</td><td><code>claude</code> starten in een map, of <code>/clear</code> voor een nieuw gesprek.</td></tr>
+          <tr><td>Projects</td><td>De map waarin je <code>claude</code> start is je project. De projectinstructies staan in <code>CLAUDE.md</code> (aanmaken met <code>/init</code>).</td></tr>
+          <tr><td>Chats and tasks</td><td><code>claude -c</code> gaat verder met je laatste gesprek. <code>claude -r</code> of <code>/resume</code> toont een lijst om uit te kiezen.</td></tr>
+          <tr><td>Pinned, ⋮-menu</td><td>Bestaan niet.</td></tr>
+          <tr><td>Artifacts, Design</td><td>Bestaan niet. Claude kan wel een HTML-bestand in je map zetten.</td></tr>
+          <tr><td>Scheduled / Routines</td><td>Bestaan niet. Wel kun je <code>claude -p "…"</code> in Windows Taakplanner zetten, zoals bij de Visma-flow.</td></tr>
+          <tr><td>Customize → Skills</td><td>Mappen in <code>.claude/skills/</code> (per project) of <code>~/.claude/skills/</code> (voor al je projecten).</td></tr>
+          <tr><td>Customize → Connectors</td><td>MCP-servers: <code>claude mcp add</code> of <code>/mcp</code>.</td></tr>
+          <tr><td>Customize → Plugins</td><td><code>/plugin</code></td></tr>
+          <tr><td>Settings</td><td><code>/config</code>, <code>/model</code>, <code>/permissions</code>, <code>/hooks</code> en het bestand <code>~/.claude/settings.json</code>.</td></tr>
+          <tr><td>Settings → Memory</td><td><code>/memory</code> opent je <code>CLAUDE.md</code>-bestanden.</td></tr>
+          <tr><td>Usage</td><td><code>/usage</code> of <code>/cost</code></td></tr>
+          <tr><td>Get help, shortcuts</td><td><code>/help</code></td></tr>
+          <tr><td>Log out</td><td><code>/logout</code> en <code>/login</code></td></tr>
+          <tr><td>⌕ zoeken</td><td>Alleen zoeken in de lijst van <code>/resume</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <div class="card-head"><h3>Gesprekken blijven lokaal</h3></div>
+        <dl><div><dd>Wat je in de terminal doet, staat in <code>~/.claude</code> op je laptop. Het verschijnt niet in je lijst in claude.ai.</dd></div></dl>
+      </article>
+      <article class="card g">
+        <div class="card-head"><h3>Alleen hier de panelen</h3></div>
+        <dl><div><dd><code>/permissions</code>, <code>/config</code> en <code>/hooks</code> openen alleen in de terminal. In de Code-tab van de app werken ze niet.</dd></div></dl>
+      </article>
+      <article class="card d">
+        <div class="card-head"><h3>Instellingen zijn bestanden</h3></div>
+        <dl><div><dd>Skills, instellingen en geheugen zijn bestanden in je map of in <code>~/.claude</code>. In de app klik je ze aan, hier bewerk je ze.</dd></div></dl>
+      </article>
+    </div>
+
+    <div class="note" style="margin-block-start: 28px">
+      <h3>Welke commando's heeft jouw versie?</h3>
+      <p>Typ in Claude Code alleen <code>/</code>. Dan zie je de volledige lijst. Die verandert per update.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WELKE WANNEER ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Praktijk</span>
+      <h2>Waar klik je voor wat?</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="picks" style="margin-block-end: 28px">
+      <div class="pick"><span class="pick-when">Een nieuw gesprek over een bestaand onderwerp, zoals baakiedoc</span><span class="pick-what">Pinned → project → New</span></div>
+      <div class="pick"><span class="pick-when">Die uitlegpagina van vorige week terugvinden</span><span class="pick-what">Artifacts</span></div>
+      <div class="pick"><span class="pick-when">Een deck in De Baak-huisstijl beginnen</span><span class="pick-what">Design → Slides</span></div>
+      <div class="pick"><span class="pick-when">Checken waarom de Substack Digest aandacht vraagt</span><span class="pick-what">Scheduled</span></div>
+      <div class="pick"><span class="pick-when">Een nieuwe koppeling of skill toevoegen</span><span class="pick-what">Customize</span></div>
+      <div class="pick"><span class="pick-when">Zien of aanpassen wat Claude over je onthoudt</span><span class="pick-what">Settings → Memory</span></div>
+      <div class="pick"><span class="pick-when">Een oud gesprek waarvan je alleen een woord weet</span><span class="pick-what">⌕ onderaan</span></div>
+    </div>
+    <div class="note">
+      <h3>De vuistregel</h3>
+      <p>Zone B is <em>wat Claude kan</em>, zone C is <em>wat jij aan het doen bent</em>. Zoek je een functie, kijk in B. Zoek je je eigen werk, kijk in C of gebruik het vergrootglas.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <span class="brand">De Baak</span>
+    <span class="desc">Training · Ontwikkeling · Leiderschap · Sinds 1947</span>
+    <p>Nagelopen op 24 september 2026 in claude.ai, met jouw account. De desktop-app toont dezelfde balk; in de Code-tab daar staan extra lokale opties, zoals je mappen.</p>
+    <p>Anthropic past dit menu regelmatig aan. Mist er iets of heet het anders, dan is de app waarschijnlijk bijgewerkt.</p>
+  </div>
+</footer>
+
+</body></html>

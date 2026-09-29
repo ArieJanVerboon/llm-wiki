@@ -1,0 +1,472 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Het linkermenu van Perplexity</title>
+<style>
+  :root {
+    --primary: #005ADC;
+    --secondary: #00A555;
+    --accent: #FFE100;
+    --bg: #F5F5EB;
+    --white: #FFFFFF;
+    --text: #1A1A2E;
+    --grey-mid: #4A5568;
+    --primary-d: #003A8C;
+    --secondary-d: #004D26;
+    --tint: #F0F5FF;
+    --line: rgba(0, 90, 220, .14);
+    --shadow: 0 4px 20px rgba(0, 90, 220, .12);
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, p, ul, dl, dd { margin: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-d) 100%);
+    color: var(--white);
+    padding-block: 64px 72px;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .hero .wrap { display: flex; flex-direction: column; gap: 18px; }
+  .eyebrow {
+    align-self: flex-start;
+    background: rgba(255, 225, 0, .12); color: var(--accent);
+    border: 1px solid rgba(255, 225, 0, .35);
+    border-radius: 100px; padding: 5px 16px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 2.8rem); font-weight: 900; letter-spacing: -.01em; line-height: 1.1; max-width: 22ch; }
+  .hero-rule { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--secondary)); border-radius: 2px; }
+  .hero p { font-size: 1.1rem; max-width: 62ch; color: rgba(255, 255, 255, .88); }
+  .hero strong { color: var(--white); }
+
+  /* ---------- secties ---------- */
+  section.block { padding-block: 56px; }
+  section.block:nth-of-type(even) { background: var(--white); }
+  .sec-head { display: flex; flex-direction: column; gap: 10px; margin-block-end: 28px; max-width: 66ch; }
+  .eyebrow-content {
+    align-self: flex-start;
+    background: rgba(0, 90, 220, .07); color: var(--primary);
+    border: 1px solid rgba(0, 90, 220, .18);
+    border-radius: 100px; padding: 4px 14px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .sec-head h2 { font-size: clamp(1.5rem, 3.4vw, 1.9rem); font-weight: 700; color: var(--primary-d); }
+  .section-rule { width: 48px; height: 3px; background: var(--secondary); border-radius: 2px; }
+  .sec-head p { color: var(--grey-mid); font-size: 1.05rem; }
+
+  .ui {
+    display: inline-block;
+    font-weight: 700; font-size: .9em;
+    background: var(--tint); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 6px;
+    padding: 0 6px; white-space: nowrap;
+  }
+
+  /* ---------- kaart van het menu ---------- */
+  .map { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+  @media (min-width: 860px) { .map { grid-template-columns: 300px 1fr; } }
+  .rail {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 14px 12px; font-size: .92rem;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .rail .zone { display: flex; flex-direction: column; gap: 2px; padding: 8px 6px; border-radius: 10px; }
+  .rail .zone + .zone { border-top: 1px dashed var(--line); }
+  .rail .z-label {
+    font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--secondary-d); margin-block-end: 4px; display: flex; gap: 8px; align-items: center;
+  }
+  .z-letter {
+    display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); color: var(--white); font-size: .7rem; letter-spacing: 0;
+  }
+  .rail .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 6px; color: var(--text); }
+  .rail .row span:last-child { color: var(--grey-mid); font-size: .8rem; }
+  .rail .toggle { display: flex; gap: 6px; }
+  .rail .toggle b { flex: 1; text-align: center; padding: 3px 0; border-radius: 6px; border: 1px solid var(--line); font-size: .82rem; }
+  .rail .toggle b.on { background: var(--tint); color: var(--primary); }
+  .rail .muted { color: var(--grey-mid); }
+
+  .zones { display: flex; flex-direction: column; gap: 14px; }
+  .zone-note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 6px;
+  }
+  .zone-note h3 { font-size: 1.05rem; display: flex; gap: 10px; align-items: center; color: var(--primary-d); }
+  .zone-note p { color: var(--grey-mid); font-size: .96rem; }
+  .zone-note:nth-child(2) { border-top-color: var(--secondary); }
+  .zone-note:nth-child(3) { border-top-color: var(--primary-d); }
+  .zone-note:nth-child(4) { border-top-color: var(--secondary-d); }
+
+  /* ---------- menukaarten ---------- */
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    background: var(--white); border-radius: 16px;
+    border-top: 4px solid var(--primary); box-shadow: var(--shadow);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .card.g { border-top-color: var(--secondary); }
+  .card.d { border-top-color: var(--primary-d); }
+  .card.dg { border-top-color: var(--secondary-d); }
+  .card-head { padding: 1.1rem 1.3rem .8rem; display: flex; flex-direction: column; gap: 4px; }
+  .card-head h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+  .card-head .path { font-size: .8rem; color: var(--grey-mid); }
+  .card dl { padding: .2rem 1.3rem 1.2rem; display: flex; flex-direction: column; gap: 12px; }
+  .card dt {
+    font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--primary); margin-block-end: 3px;
+  }
+  .card.g dt { color: var(--secondary-d); }
+  .card dd { font-size: .95rem; line-height: 1.55; }
+  .card dd.tip { background: var(--bg); border-radius: 10px; padding: 8px 12px; color: var(--text); }
+  .card ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 3px; }
+
+  /* ---------- tabel ---------- */
+  .table-wrap { overflow-x: auto; border-radius: 16px; box-shadow: var(--shadow); background: var(--white); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .95rem; }
+  thead { background: var(--primary); color: var(--white); }
+  th, td { text-align: left; padding: 11px 16px; vertical-align: top; }
+  th { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+  tbody tr:nth-child(odd) { background: var(--white); }
+  tbody tr:nth-child(even) { background: var(--tint); }
+  td:first-child { font-weight: 700; white-space: nowrap; color: var(--primary-d); }
+
+  /* ---------- keuzelijst ---------- */
+  .picks { display: flex; flex-direction: column; gap: 1px; background: var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .pick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding: 14px 20px; background: var(--white); }
+  .pick-when { flex: 1 1 280px; min-width: 0; }
+  .pick-what { font-weight: 700; color: var(--primary); }
+
+  .note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--secondary);
+    padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 8px; max-width: 72ch;
+  }
+  .note h3 { font-size: 1.05rem; color: var(--secondary-d); }
+  .note p { color: var(--grey-mid); }
+
+  /* ---------- footer ---------- */
+  .footer { position: relative; background: var(--primary); color: var(--white); padding-block: 44px 40px; overflow: hidden; }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .footer::after {
+    content: ""; position: absolute; top: 0; right: 0;
+    border-style: solid; border-width: 0 180px 180px 0;
+    border-color: transparent rgba(255, 255, 255, .07) transparent transparent;
+  }
+  .footer .wrap { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; }
+  .footer .brand { font-weight: 900; font-size: 1.1rem; }
+  .footer .desc { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .78); }
+  .footer p { font-size: .88rem; color: rgba(255, 255, 255, .86); max-width: 74ch; }
+
+  code {
+    font-family: Consolas, "Courier New", monospace; font-size: .88em;
+    background: var(--bg); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; white-space: nowrap;
+  }
+  td:nth-child(2) { white-space: normal; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Oriëntatie · Perplexity</span>
+    <h1>Het linkermenu van Perplexity</h1>
+    <div class="hero-rule"></div>
+    <p>Hetzelfde overzicht als voor Claude, nu voor Perplexity: de balk links van boven naar beneden, met elk submenu opengeklapt. Nagelopen op 24 september 2026 in <strong>jouw account</strong> (Enterprise Pro, organisatie Inspreadables).</p>
+  </div>
+</header>
+
+<!-- ============ KAART ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Overzicht</span>
+      <h2>Vier zones, van boven naar beneden</h2>
+      <div class="section-rule"></div>
+      <p>De opbouw lijkt op die van Claude, met een korter hoofdmenu. Perplexity stopt veel in één plek: <span class="ui">Aanpassen</span>.</p>
+    </div>
+
+    <div class="map">
+      <nav class="rail" aria-label="Schets van het linkermenu van Perplexity">
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">A</span>Kop</span>
+          <div class="row"><span>✱ logo</span><span>⌕ &nbsp;▢</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">B</span>Hoofdmenu</span>
+          <div class="row"><span>+ Nieuw</span><span>zoeken of Computer</span></div>
+          <div class="row"><span>Computer</span><span>agent-sessies</span></div>
+          <div class="row"><span>Artefacten</span></div>
+          <div class="row"><span>Aanpassen</span><span>4 tabbladen</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">C</span>Jouw werk</span>
+          <div class="row"><span>Vastgezet</span><span>2 items</span></div>
+          <div class="row"><span>Projecten</span><span>+ &nbsp;filter</span></div>
+          <div class="row"><span>Sessies</span><span>geschiedenis</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">D</span>Voetbalk</span>
+          <div class="row"><span>arijjan verboon</span><span>bel</span></div>
+          <div class="row"><span>Inspreadables</span><span>organisatie</span></div>
+          <div class="row muted"><span>Organisatieleden toevoegen</span></div>
+        </div>
+      </nav>
+
+      <div class="zones">
+        <div class="zone-note">
+          <h3><span class="z-letter">A</span>Kop: terug naar start</h3>
+          <p>Het logo brengt je naar een nieuwe vraag. Het vergrootglas doorzoekt al je sessies, het icoon ernaast klapt de balk in. Er is geen schakelaar zoals bij Claude: de keuze tussen zoeken en de agent maak je in het invoerveld.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">B</span>Hoofdmenu: vier bestemmingen</h3>
+          <p><span class="ui">Nieuw</span>, <span class="ui">Computer</span>, <span class="ui">Artefacten</span> en <span class="ui">Aanpassen</span>. Er is geen apart item voor geplande taken of ontwerp: terugkerende taken leven in Computer, en connectors, skills, workflows en geheugen zitten samen onder Aanpassen.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">C</span>Jouw werk: snelkoppelingen</h3>
+          <p>Wat je hebt vastgezet, je projecten (de eerste vijf, met <span class="ui">Meer tonen</span>) en je recente sessies.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">D</span>Voetbalk: jij, je meldingen en je organisatie</h3>
+          <p>Je naam opent het accountmenu. De bel toont meldingen van Computer-taken. <span class="ui">Inspreadables</span> opent je organisatie, en daaronder nodig je collega's uit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOOFDMENU ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone B</span>
+      <h2>Het hoofdmenu, item voor item</h2>
+      <div class="section-rule"></div>
+      <p>Per item: wat je er vindt, welke tabbladen en knoppen er zitten, en waar je het voor gebruikt.</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-head"><h3>Nieuw</h3><span class="path">perplexity.ai</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Het invoerveld. De belangrijkste keuze zit hier: <span class="ui">Zoeken</span> voor een antwoord met bronnen, of <span class="ui">Computer</span> voor een agent die een taak uitvoert.</dd></div>
+          <div><dt>Submenu's</dt><dd>
+            <ul>
+              <li><span class="ui">Zoeken ⌄</span>: Zoeken, Diepgaand onderzoek, Modelraad (alleen met Max), Leer stap voor stap.</li>
+              <li><span class="ui">Model ⌄</span>: Het beste (automatisch), GPT-6 Sol, Gemini 3.8 Flash, Claude Sonnet 5, Claude Opus 5.5 (Max), Kimi K3, GLM 5.3, Grok 4.7, Nemotron 3 Ultra.</li>
+              <li>Typ <span class="ui">/</span> voor vaardigheden en opdrachten, <span class="ui">@</span> voor connectors. De <span class="ui">+</span> voegt bestanden of tools toe.</li>
+              <li>Onder het veld in Computer-modus: <span class="ui">Werken in een project</span> en <span class="ui">Een app verbinden</span>.</li>
+            </ul>
+          </dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Snel en onderbouwd iets uitzoeken. Kies Diepgaand onderzoek als je een rapport met veel bronnen wilt.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card g">
+        <div class="card-head"><h3>Computer</h3><span class="path">perplexity.ai/computer/tasks</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Al je agent-sessies, per dag gegroepeerd, met het project en de bestanden die eruit kwamen. Bovenaan staan de vastgezette: <em>docuresearch</em> en <em>AI News Monitoring for Learning Design</em>.</dd></div>
+          <div><dt>Submenu's</dt><dd>Tabbladen <span class="ui">Sessies</span>, <span class="ui">Ongelezen</span>, <span class="ui">Gearchiveerd</span>. Filter op <span class="ui">Status</span> en <span class="ui">Project</span>. Rechtsboven zoeken, <span class="ui">Gebruik</span> en <span class="ui">+ Nieuw</span>.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Werk dat meerdere stappen of een schema heeft, zoals je dagelijkse windcheck voor Kos en Rhodos. Let op: Computer gebruikt credits. Onder <span class="ui">Gebruik</span> zie je hoeveel.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card d">
+        <div class="card-head"><h3>Artefacten</h3><span class="path">perplexity.ai/computer/artifacts</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Alles wat Computer voor je maakte: rapporten, dashboards, presentaties. Vastgezet staat je <em>AI Model Access Dashboard</em>.</dd></div>
+          <div><dt>Submenu's</dt><dd>Tabbladen <span class="ui">Alles</span>, <span class="ui">Door jou gemaakt</span>, <span class="ui">Gedeeld met jou</span>. Wisselen tussen raster en lijst, zoeken, filteren.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Een oud onderzoeksrapport terugvinden zonder te weten in welke sessie het zat.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card dg">
+        <div class="card-head"><h3>Aanpassen</h3><span class="path">perplexity.ai/computer/connectors</span></div>
+        <dl>
+          <div><dt>Submenu's</dt><dd>
+            <ul>
+              <li><span class="ui">Connectors</span>: Ontdekken, Alle, Gekoppeld, Beschikbaar. Bij jou gekoppeld: Google Drive, Gmail with Calendar, GitHub. Gratis inbegrepen bij Computer: onder meer Statista, CB Insights, PitchBook en Wiley. Knop <span class="ui">Aangepaste connector</span> voor een eigen koppeling.</li>
+              <li><span class="ui">Skills</span>: Ontdekken, Organisatieskills, Geïnstalleerde skills. Knop <span class="ui">Vaardigheid maken</span>.</li>
+              <li><span class="ui">Workflows</span>: kant-en-klare begeleide flows, zoals Slide creation, Final pass en Prompt refinement.</li>
+              <li><span class="ui">Geheugen</span>: wat Perplexity over je onthoudt, verdeeld in Concepten, Entiteiten, Werkstromen en Notities.</li>
+            </ul>
+            Rechtsboven zit <span class="ui">Beheerder</span> voor instellingen op organisatieniveau.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Perplexity toegang geven tot je bronnen, en vaste werkwijzen vastleggen als skill.</dd></div>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOUW WERK ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone C</span>
+      <h2>Jouw lijsten</h2>
+      <div class="section-rule"></div>
+      <p>Drie lijsten met je eigen werk. Elk kopje klapt in met het pijltje, en klik je op het kopje zelf, dan opent de volledige pagina.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <div class="card-head"><h3>Vastgezet</h3><span class="path">lijst in de balk</span></div>
+        <dl><div><dt>Toont</dt><dd>Artefacten en sessies die je hebt vastgezet. Een klein icoon achter de naam betekent dat het een artefact is, geen sessie.</dd></div></dl>
+      </article>
+      <article class="card g">
+        <div class="card-head"><h3>Projecten</h3><span class="path">perplexity.ai/projects</span></div>
+        <dl><div><dt>Toont</dt><dd>Een map per onderwerp met eigen bestanden en instructies. Op de volledige pagina zie je of een project <em>Privé</em> of van de <em>Organisatie</em> is (zoals Baakdociereserach). <span class="ui">+</span> maakt een nieuw project, het filtericoon sorteert.</dd></div></dl>
+      </article>
+      <article class="card d">
+        <div class="card-head"><h3>Sessies</h3><span class="path">perplexity.ai/library</span></div>
+        <dl><div><dt>Toont</dt><dd>Je volledige geschiedenis. Op de volledige pagina staat per regel of het een <em>Zoeken</em>- of een <em>Computer</em>-sessie was. Sorteren op nieuwste, filteren en zoeken.</dd></div></dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOETBALK ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone D</span>
+      <h2>Voetbalk en instellingen</h2>
+      <div class="section-rule"></div>
+      <p>Klik op je naam onderin. Daar zit alles over je account; de diepte zit achter <span class="ui">Alle instellingen</span>.</p>
+    </div>
+
+    <div class="grid" style="margin-block-end: 28px">
+      <article class="card">
+        <div class="card-head"><h3>Accountmenu</h3><span class="path">klik op je naam</span></div>
+        <dl>
+          <div><dt>Items</dt><dd>
+            <ul>
+              <li><span class="ui">Incognito</span>: aan/uit-schakelaar. Sessies komen niet in je geschiedenis en verdwijnen na 24 uur.</li>
+              <li><span class="ui">Account toevoegen</span>: wisselen tussen accounts.</li>
+              <li><span class="ui">Alle instellingen</span> en <span class="ui">Organisatie-instellingen</span>.</li>
+              <li><span class="ui">Plan upgraden</span>, <span class="ui">Apps installeren</span>.</li>
+              <li><span class="ui">Uiterlijk ›</span> (nu Systeem, licht) en <span class="ui">Taal ›</span>.</li>
+              <li><span class="ui">Uitloggen</span>.</li>
+            </ul>
+          </dd></div>
+        </dl>
+      </article>
+      <article class="card g">
+        <div class="card-head"><h3>Help ›</h3><span class="path">submenu in het accountmenu</span></div>
+        <dl>
+          <div><dt>Items</dt><dd>Aan de slag, Helpcentrum, <span class="ui">Changelog</span>, <span class="ui">Blog</span>, Sneltoetsen (<span class="ui">Ctrl+/</span>), Contact met support opnemen, Vacatures, Servicevoorwaarden, Privacybeleid.</dd></div>
+          <div><dt>Tip</dt><dd class="tip">Changelog en Blog zijn je snelste route naar nieuwe functies. Zie de sectie over bijblijven.</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-block-end: 28px">
+      <table>
+        <thead><tr><th>Instellingen</th><th>Wat je er regelt</th></tr></thead>
+        <tbody>
+          <tr><td>Account</td><td>Profiel, abonnement (Enterprise Pro), tweefactorauthenticatie, support.</td></tr>
+          <tr><td>Voorkeuren · Personalisatie</td><td>Hoe Perplexity antwoordt en wat het over je weet als uitgangspunt.</td></tr>
+          <tr><td>Geheugeninstellingen</td><td>Of Perplexity dingen onthoudt tussen gesprekken.</td></tr>
+          <tr><td>Meldingen</td><td>Wanneer je een seintje krijgt.</td></tr>
+          <tr><td>Gebruik en credits · Analyse</td><td>Hoeveel je verbruikt, vooral van Computer.</td></tr>
+          <tr><td>Computer-groep</td><td>Configuratie, Apparaten, Connectoren, Vaardigheden, Geheugen en <span class="ui">Kluis voor inloggegevens</span> (wachtwoorden die de agent mag gebruiken).</td></tr>
+          <tr><td>Overig</td><td>Organisatie-instellingen en het API-platform.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid">
+      <article class="card d">
+        <div class="card-head"><h3>Meldingen</h3><span class="path">bel naast je naam</span></div>
+        <dl><div><dd>Resultaten van terugkerende Computer-taken (<em>Ready for review</em>) en taken die op jou wachten (<em>Action needed</em>). Bij jou staan er nu twee op <em>Action needed</em>.</dd></div></dl>
+      </article>
+      <article class="card dg">
+        <div class="card-head"><h3>Rechtsboven</h3><span class="path">niet links, wel handig</span></div>
+        <dl><div><dd><span class="ui">Gebruik</span> (credits), incognito, en <span class="ui">☰</span> met Ontdekken, Financieel, Gezondheid, Academisch, Patenten en Feedback geven. Die laatste vijf zijn zoekomgevingen per vakgebied.</dd></div></dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERGELIJKING ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Naast elkaar</span>
+      <h2>Perplexity en Claude vergeleken</h2>
+      <div class="section-rule"></div>
+      <p>De meeste onderdelen hebben een tegenhanger. De verschillen zitten in wat ermee samen is gevoegd.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Perplexity</th><th>Claude</th><th>Verschil</th></tr></thead>
+        <tbody>
+          <tr><td>Nieuw · Zoeken</td><td>New · Chat</td><td>Perplexity zoekt standaard op het web en toont bronnen. Je kiest zelf uit modellen van meerdere makers.</td></tr>
+          <tr><td>Computer</td><td>Cowork + Scheduled</td><td>Bij Perplexity zitten eenmalige én terugkerende agent-taken op één plek, en ze kosten credits.</td></tr>
+          <tr><td>Artefacten</td><td>Artifacts</td><td>Vergelijkbaar. Claude heeft daarnaast Design en je design system.</td></tr>
+          <tr><td>Aanpassen</td><td>Customize + Settings → Memory</td><td>Perplexity heeft ook kant-en-klare Workflows en toont geheugen per soort.</td></tr>
+          <tr><td>Projecten</td><td>Projects</td><td>Bij Perplexity kan een project van je organisatie zijn.</td></tr>
+          <tr><td>Sessies</td><td>Chats and tasks</td><td>Vergelijkbaar.</td></tr>
+          <tr><td>Kluis voor inloggegevens</td><td>(geen)</td><td>De Perplexity-agent kan met opgeslagen inloggegevens werken. Claude vraagt je zelf in te loggen.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIJBLIJVEN ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Bijblijven</span>
+      <h2>Waar zie je wat er nieuw is?</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="picks" style="margin-block-end: 28px">
+      <div class="pick"><span class="pick-when">Nieuwe functies in de app, per update</span><span class="pick-what"><a href="https://www.perplexity.ai/changelog">perplexity.ai/changelog</a></span></div>
+      <div class="pick"><span class="pick-when">Aankondigingen en achtergrond</span><span class="pick-what">Help → Blog</span></div>
+      <div class="pick"><span class="pick-when">Wijzigingen voor wie op de API bouwt, zoals Baakiedoc</span><span class="pick-what"><a href="https://docs.perplexity.ai/docs/resources/changelog">API-changelog</a></span></div>
+      <div class="pick"><span class="pick-when">Hoe credits werken en wat Computer kost</span><span class="pick-what"><a href="https://www.perplexity.ai/help-center/en/articles/13838041-how-credits-work-on-perplexity">Helpcentrum: credits</a></span></div>
+      <div class="pick"><span class="pick-when">Nieuwe kant-en-klare toepassingen</span><span class="pick-what">Aanpassen → Workflows → Bladeren</span></div>
+      <div class="pick"><span class="pick-when">Nieuwe modellen</span><span class="pick-what">Model ⌄, let op het label "Nieuw"</span></div>
+    </div>
+    <div class="note">
+      <h3>Nu actie nodig</h3>
+      <p>Je Google Drive-koppeling vraagt om opnieuw verbinden <strong>vóór 31 oktober 2026</strong>. Dat doe je onder Aanpassen → Connectors → Gekoppeld. Daarnaast wachten twee Computer-taken in je meldingen op een reactie.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <span class="brand">De Baak</span>
+    <span class="desc">Training · Ontwikkeling · Leiderschap · Sinds 1947</span>
+    <p>Nagelopen op 24 september 2026 op perplexity.ai, met jouw account, in de Nederlandstalige interface. De desktop-app van Perplexity kan op details afwijken.</p>
+    <p>Perplexity past zijn menu vaak aan. Mist er iets of heet het anders, kijk dan eerst in de changelog.</p>
+  </div>
+</footer>
+
+</body></html>

@@ -1,0 +1,230 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Het linkermenu van ChatGPT</title>
+<style>
+  :root {
+    --primary: #005ADC;
+    --secondary: #00A555;
+    --accent: #FFE100;
+    --bg: #F5F5EB;
+    --white: #FFFFFF;
+    --text: #1A1A2E;
+    --grey-mid: #4A5568;
+    --primary-d: #003A8C;
+    --secondary-d: #004D26;
+    --tint: #F0F5FF;
+    --line: rgba(0, 90, 220, .14);
+    --shadow: 0 4px 20px rgba(0, 90, 220, .12);
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, p, ul, dl, dd { margin: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-d) 100%);
+    color: var(--white);
+    padding-block: 64px 72px;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .hero .wrap { display: flex; flex-direction: column; gap: 18px; }
+  .eyebrow {
+    align-self: flex-start;
+    background: rgba(255, 225, 0, .12); color: var(--accent);
+    border: 1px solid rgba(255, 225, 0, .35);
+    border-radius: 100px; padding: 5px 16px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 2.8rem); font-weight: 900; letter-spacing: -.01em; line-height: 1.1; max-width: 22ch; }
+  .hero-rule { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--secondary)); border-radius: 2px; }
+  .hero p { font-size: 1.1rem; max-width: 62ch; color: rgba(255, 255, 255, .88); }
+  .hero strong { color: var(--white); }
+
+  /* ---------- secties ---------- */
+  section.block { padding-block: 56px; }
+  section.block:nth-of-type(even) { background: var(--white); }
+  .sec-head { display: flex; flex-direction: column; gap: 10px; margin-block-end: 28px; max-width: 66ch; }
+  .eyebrow-content {
+    align-self: flex-start;
+    background: rgba(0, 90, 220, .07); color: var(--primary);
+    border: 1px solid rgba(0, 90, 220, .18);
+    border-radius: 100px; padding: 4px 14px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .sec-head h2 { font-size: clamp(1.5rem, 3.4vw, 1.9rem); font-weight: 700; color: var(--primary-d); }
+  .section-rule { width: 48px; height: 3px; background: var(--secondary); border-radius: 2px; }
+  .sec-head p { color: var(--grey-mid); font-size: 1.05rem; }
+
+  .ui {
+    display: inline-block;
+    font-weight: 700; font-size: .9em;
+    background: var(--tint); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 6px;
+    padding: 0 6px; white-space: nowrap;
+  }
+
+  /* ---------- kaart van het menu ---------- */
+  .map { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+  @media (min-width: 860px) { .map { grid-template-columns: 300px 1fr; } }
+  .rail {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 14px 12px; font-size: .92rem;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .rail .zone { display: flex; flex-direction: column; gap: 2px; padding: 8px 6px; border-radius: 10px; }
+  .rail .zone + .zone { border-top: 1px dashed var(--line); }
+  .rail .z-label {
+    font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--secondary-d); margin-block-end: 4px; display: flex; gap: 8px; align-items: center;
+  }
+  .z-letter {
+    display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); color: var(--white); font-size: .7rem; letter-spacing: 0;
+  }
+  .rail .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 6px; color: var(--text); }
+  .rail .row span:last-child { color: var(--grey-mid); font-size: .8rem; }
+  .rail .toggle { display: flex; gap: 6px; }
+  .rail .toggle b { flex: 1; text-align: center; padding: 3px 0; border-radius: 6px; border: 1px solid var(--line); font-size: .82rem; }
+  .rail .toggle b.on { background: var(--tint); color: var(--primary); }
+  .rail .muted { color: var(--grey-mid); }
+
+  .zones { display: flex; flex-direction: column; gap: 14px; }
+  .zone-note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 6px;
+  }
+  .zone-note h3 { font-size: 1.05rem; display: flex; gap: 10px; align-items: center; color: var(--primary-d); }
+  .zone-note p { color: var(--grey-mid); font-size: .96rem; }
+  .zone-note:nth-child(2) { border-top-color: var(--secondary); }
+  .zone-note:nth-child(3) { border-top-color: var(--primary-d); }
+  .zone-note:nth-child(4) { border-top-color: var(--secondary-d); }
+
+  /* ---------- menukaarten ---------- */
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    background: var(--white); border-radius: 16px;
+    border-top: 4px solid var(--primary); box-shadow: var(--shadow);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .card.g { border-top-color: var(--secondary); }
+  .card.d { border-top-color: var(--primary-d); }
+  .card.dg { border-top-color: var(--secondary-d); }
+  .card-head { padding: 1.1rem 1.3rem .8rem; display: flex; flex-direction: column; gap: 4px; }
+  .card-head h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+  .card-head .path { font-size: .8rem; color: var(--grey-mid); }
+  .card dl { padding: .2rem 1.3rem 1.2rem; display: flex; flex-direction: column; gap: 12px; }
+  .card dt {
+    font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--primary); margin-block-end: 3px;
+  }
+  .card.g dt { color: var(--secondary-d); }
+  .card dd { font-size: .95rem; line-height: 1.55; }
+  .card dd.tip { background: var(--bg); border-radius: 10px; padding: 8px 12px; color: var(--text); }
+  .card ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 3px; }
+
+  /* ---------- tabel ---------- */
+  .table-wrap { overflow-x: auto; border-radius: 16px; box-shadow: var(--shadow); background: var(--white); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .95rem; }
+  thead { background: var(--primary); color: var(--white); }
+  th, td { text-align: left; padding: 11px 16px; vertical-align: top; }
+  th { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+  tbody tr:nth-child(odd) { background: var(--white); }
+  tbody tr:nth-child(even) { background: var(--tint); }
+  td:first-child { font-weight: 700; white-space: nowrap; color: var(--primary-d); }
+
+  /* ---------- keuzelijst ---------- */
+  .picks { display: flex; flex-direction: column; gap: 1px; background: var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .pick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding: 14px 20px; background: var(--white); }
+  .pick-when { flex: 1 1 280px; min-width: 0; }
+  .pick-what { font-weight: 700; color: var(--primary); }
+
+  .note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--secondary);
+    padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 8px; max-width: 72ch;
+  }
+  .note h3 { font-size: 1.05rem; color: var(--secondary-d); }
+  .note p { color: var(--grey-mid); }
+
+  /* ---------- footer ---------- */
+  .footer { position: relative; background: var(--primary); color: var(--white); padding-block: 44px 40px; overflow: hidden; }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .footer::after {
+    content: ""; position: absolute; top: 0; right: 0;
+    border-style: solid; border-width: 0 180px 180px 0;
+    border-color: transparent rgba(255, 255, 255, .07) transparent transparent;
+  }
+  .footer .wrap { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; }
+  .footer .brand { font-weight: 900; font-size: 1.1rem; }
+  .footer .desc { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .78); }
+  .footer p { font-size: .88rem; color: rgba(255, 255, 255, .86); max-width: 74ch; }
+
+  code {
+    font-family: Consolas, "Courier New", monospace; font-size: .88em;
+    background: var(--bg); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; white-space: nowrap;
+  }
+  td:nth-child(2) { white-space: normal; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
+</style>
+
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Oriëntatie · ChatGPT</span>
+  <h1>Het linkermenu van ChatGPT</h1>
+  <div class="hero-rule"></div>
+  <p>Hetzelfde overzicht als voor Claude, Perplexity, Gemini en DeepSeek. Nagelopen op 24 september 2026 in <strong>jouw account</strong> (ChatGPT Free).</p>
+</div></header>
+
+<section class="block"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow-content">Overzicht</span><h2>Vier zones, veel zichtbaar maar deels op slot</h2><div class="section-rule"></div><p>ChatGPT toont bijna alles in het menu, ook wat bij jouw gratis account achter een upgrade zit. Bovenaan de pagina kies je tussen <span class="ui">Chat</span> en <span class="ui">Work</span>.</p></div>
+  <div class="map"><nav class="rail" aria-label="Schets van het menu"><div class="zone"><span class="z-label"><span class="z-letter">A</span>Kop</span><div class="row"><span>ChatGPT</span><span>⌕ &nbsp;▢</span></div></div><div class="zone"><span class="z-label"><span class="z-letter">B</span>Hoofdmenu</span><div class="row"><span>Nieuwe chat</span><span></span></div><div class="row"><span>Afbeeldingen</span><span></span></div><div class="row"><span>Bibliotheek</span><span></span></div><div class="row"><span>Gepland</span><span></span></div><div class="row"><span>Plug-ins</span><span></span></div><div class="row"><span>Projecten</span><span>+</span></div><div class="row"><span>Codex</span><span></span></div><div class="row"><span>… Meer</span><span></span></div></div><div class="zone"><span class="z-label"><span class="z-letter">C</span>Jouw werk</span><div class="row"><span>Recente items</span><span>vastzetten</span></div></div><div class="zone"><span class="z-label"><span class="z-letter">D</span>Voetbalk</span><div class="row"><span>arijjan verboon · Free</span><span>Upgraden</span></div></div></nav><div class="zones"><div class="zone-note"><h3><span class="z-letter">A</span>Kop: zoeken en inklappen</h3><p>Het vergrootglas zoekt in je chats, het icoon ernaast klapt de balk in.</p></div><div class="zone-note"><h3><span class="z-letter">B</span>Hoofdmenu: acht bestemmingen</h3><p>Van beeld maken tot geplande taken, koppelingen (Plug-ins), projecten en de codeeragent Codex.</p></div><div class="zone-note"><h3><span class="z-letter">C</span>Jouw werk: recente chats</h3><p>Eén lijst met je gesprekken. Bij elk gesprek zit een punaise en een menu met opties.</p></div><div class="zone-note"><h3><span class="z-letter">D</span>Voetbalk: profiel en instellingen</h3><p>Je naam opent Personalisatie, Profiel, Instellingen, Help en Afmelden.</p></div></div></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow-content">Menu</span><h2>Het hoofdmenu, item voor item</h2><div class="section-rule"></div><p>Per item wat je vindt en waar je het voor gebruikt.</p></div>
+  <div class="grid grid-3"><article class="card"><div class="card-head"><h3>Nieuwe chat</h3><span class="path">chatgpt.com</span></div><dl><div><dt>Wat je vindt</dt><dd>Het invoerveld met <span class="ui">+</span> (bestanden en meer), <span class="ui">Nadenken</span> voor redeneren, dicteren en spraakmodus. Rechtsboven een <span class="ui">Tijdelijke chat</span>.</dd></div><div><dt>Gebruik het voor</dt><dd class="tip">Snelle vragen en tekstwerk, en een tweede mening naast Claude.</dd></div></dl></article><article class="card g"><div class="card-head"><h3>Chat / Work</h3><span class="path">schakelaar bovenaan</span></div><dl><div><dt>Wat je vindt</dt><dd><em>Work</em> is een modus voor grotere taken: context verzamelen en documenten, presentaties en spreadsheets maken.</dd></div><div><dt>Let op</dt><dd class="tip">Bij jouw Free-account staat Work op slot (<em>Ontgrendelen met Plus</em>).</dd></div></dl></article><article class="card d"><div class="card-head"><h3>Afbeeldingen</h3><span class="path">chatgpt.com/images</span></div><dl><div><dt>Wat je vindt</dt><dd>Startpunt om beelden te maken en te bewerken.</dd></div><div><dt>Gebruik het voor</dt><dd class="tip">Illustraties. Voor De Baak-beeld blijft de huisstijl leidend.</dd></div></dl></article><article class="card dg"><div class="card-head"><h3>Bibliotheek</h3><span class="path">chatgpt.com/library</span></div><dl><div><dt>Wat je vindt</dt><dd>Alles wat ChatGPT voor je maakte. Tabbladen Nieuw, Aanbevolen, Favorieten, Mappen, Afbeeldingen, Alles. Bij jou nog leeg.</dd></div><div><dt>Gebruik het voor</dt><dd class="tip">Een gemaakt document of beeld terugvinden, zoals Artifacts bij Claude.</dd></div></dl></article><article class="card"><div class="card-head"><h3>Gepland</h3><span class="path">chatgpt.com/scheduled</span></div><dl><div><dt>Wat je vindt</dt><dd>Geplande taken en herinneringen, met voorbeelden als Dagoverzicht en Aanbiedingsmonitor. Bij jou nog geen actieve.</dd></div><div><dt>Gebruik het voor</dt><dd class="tip">Terugkerende overzichten. Je Claude-taken doen dit nu al voor je.</dd></div></dl></article><article class="card g"><div class="card-head"><h3>Plug-ins</h3><span class="path">chatgpt.com/plugins</span></div><dl><div><dt>Wat je vindt</dt><dd>Koppelingen met o.a. Gmail, Google Drive, GitHub, Google Calendar, Notion, Canva, Figma, Slack en Outlook.</dd></div><div><dt>Gebruik het voor</dt><dd class="tip">ChatGPT laten werken met je eigen bestanden en mail, zoals Connectors bij Claude.</dd></div></dl></article><article class="card d"><div class="card-head"><h3>Projecten</h3><span class="path">chatgpt.com/projects</span></div><dl><div><dt>Wat je vindt</dt><dd>Mappen met eigen bestanden en instructies. <span class="ui">+</span> maakt een nieuw project.</dd></div><div><dt>Gebruik het voor</dt><dd class="tip">Terugkerende onderwerpen, net als Projects bij Claude.</dd></div></dl></article><article class="card dg"><div class="card-head"><h3>Codex</h3><span class="path">chatgpt.com/codex</span></div><dl><div><dt>Wat je vindt</dt><dd>De codeeragent van OpenAI, met een Windows-app, parallelle agents en cloudomgevingen.</dd></div><div><dt>Gebruik het voor</dt><dd class="tip">Vergelijkbaar met Claude Code. Handig als tweede agent op een GitHub-repo.</dd></div></dl></article><article class="card"><div class="card-head"><h3>Meer</h3><span class="path">uitklapmenu</span></div><dl><div><dt>Wat je vindt</dt><dd>Extra onderdelen die niet in het hoofdmenu passen. Bij het nalopen bleef dit menu leeg; kijk zelf even wat er bij jou staat.</dd></div></dl></article></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow-content">Zone D</span><h2>Profielmenu</h2><div class="section-rule"></div></div>
+  <div class="table-wrap"><table><thead><tr><th>Item</th><th>Wat je er regelt</th></tr></thead><tbody><tr><td>Abonnement upgraden</td><td>Van Free naar Plus of hoger. Work, meer modellen en hogere limieten zitten daarachter.</td></tr><tr><td>Personalisatie</td><td>Hoe ChatGPT antwoordt, en het geheugen. Je hebt vandaag <em>Geheugen gebruiken</em> gekozen.</td></tr><tr><td>Profiel</td><td>Naam en profielfoto.</td></tr><tr><td>Instellingen</td><td>Algemeen, meldingen, gegevensbeheer (o.a. of je chats voor training gebruikt worden), beveiliging en gekoppelde apps.</td></tr><tr><td>Help · Afmelden</td><td>Helpcentrum, release notes en uitloggen.</td></tr></tbody></table></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow-content">Jouw werk</span><h2>Waar zet je het voor in?</h2><div class="section-rule"></div><p>ChatGPT is bij jou nu een gratis tweede gesprekspartner. Je huidige chats zijn vooral losse vragen en mailtjes.</p></div>
+  <div class="picks"><div class="pick"><span class="pick-when">Een tweede mening op een tekst of plan</span><span class="pick-what">Nieuwe chat</span></div><div class="pick"><span class="pick-when">Beelden maken voor een concept</span><span class="pick-what">Afbeeldingen</span></div><div class="pick"><span class="pick-when">Een tweede codeeragent naast Claude Code</span><span class="pick-what">Codex (GitHub-koppeling)</span></div><div class="pick"><span class="pick-when">Meer: documenten en decks laten bouwen</span><span class="pick-what">Work, alleen met Plus</span></div></div><div class="note" style="margin-block-start:20px"><h3>Nagaan: training op je chats</h3><p>Kijk onder Instellingen → Gegevensbeheer of <em>Het model verbeteren voor iedereen</em> aan staat. Zet het uit als je er De Baak-werk in zet.</p></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow-content">Bijblijven</span><h2>Waar zie je wat er nieuw is?</h2><div class="section-rule"></div><p>Deze bronnen leest ook je wekelijkse taak <em>Weekly: AI-tools Updates</em> elke maandag voor je.</p></div>
+  <div class="picks"><div class="pick"><span class="pick-when">Nieuwe functies in ChatGPT</span><span class="pick-what"><a href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes">ChatGPT release notes</a></span></div><div class="pick"><span class="pick-when">Nieuwe modellen</span><span class="pick-what"><a href="https://help.openai.com/en/articles/9624314-model-release-notes">Model release notes</a></span></div><div class="pick"><span class="pick-when">Codex en de Windows-app</span><span class="pick-what"><a href="https://help.openai.com/en/articles/10003026-windows-app-release-notes">Windows-app release notes</a></span></div></div>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <span class="brand">De Baak</span>
+  <span class="desc">Training · Ontwikkeling · Leiderschap · Sinds 1947</span>
+  <p>Nagelopen op 24 september 2026 op chatgpt.com, met jouw account, in de Nederlandstalige interface.</p>
+  <p>Menu's veranderen vaak. Mist er iets of heet het anders, kijk dan eerst in de bronnen hierboven.</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,451 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Het linkermenu van Gemini</title>
+<style>
+  :root {
+    --primary: #005ADC;
+    --secondary: #00A555;
+    --accent: #FFE100;
+    --bg: #F5F5EB;
+    --white: #FFFFFF;
+    --text: #1A1A2E;
+    --grey-mid: #4A5568;
+    --primary-d: #003A8C;
+    --secondary-d: #004D26;
+    --tint: #F0F5FF;
+    --line: rgba(0, 90, 220, .14);
+    --shadow: 0 4px 20px rgba(0, 90, 220, .12);
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, p, ul, dl, dd { margin: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-d) 100%);
+    color: var(--white);
+    padding-block: 64px 72px;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .hero .wrap { display: flex; flex-direction: column; gap: 18px; }
+  .eyebrow {
+    align-self: flex-start;
+    background: rgba(255, 225, 0, .12); color: var(--accent);
+    border: 1px solid rgba(255, 225, 0, .35);
+    border-radius: 100px; padding: 5px 16px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 2.8rem); font-weight: 900; letter-spacing: -.01em; line-height: 1.1; max-width: 22ch; }
+  .hero-rule { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--secondary)); border-radius: 2px; }
+  .hero p { font-size: 1.1rem; max-width: 62ch; color: rgba(255, 255, 255, .88); }
+  .hero strong { color: var(--white); }
+
+  /* ---------- secties ---------- */
+  section.block { padding-block: 56px; }
+  section.block:nth-of-type(even) { background: var(--white); }
+  .sec-head { display: flex; flex-direction: column; gap: 10px; margin-block-end: 28px; max-width: 66ch; }
+  .eyebrow-content {
+    align-self: flex-start;
+    background: rgba(0, 90, 220, .07); color: var(--primary);
+    border: 1px solid rgba(0, 90, 220, .18);
+    border-radius: 100px; padding: 4px 14px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .sec-head h2 { font-size: clamp(1.5rem, 3.4vw, 1.9rem); font-weight: 700; color: var(--primary-d); }
+  .section-rule { width: 48px; height: 3px; background: var(--secondary); border-radius: 2px; }
+  .sec-head p { color: var(--grey-mid); font-size: 1.05rem; }
+
+  .ui {
+    display: inline-block;
+    font-weight: 700; font-size: .9em;
+    background: var(--tint); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 6px;
+    padding: 0 6px; white-space: nowrap;
+  }
+
+  /* ---------- kaart van het menu ---------- */
+  .map { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+  @media (min-width: 860px) { .map { grid-template-columns: 300px 1fr; } }
+  .rail {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 14px 12px; font-size: .92rem;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .rail .zone { display: flex; flex-direction: column; gap: 2px; padding: 8px 6px; border-radius: 10px; }
+  .rail .zone + .zone { border-top: 1px dashed var(--line); }
+  .rail .z-label {
+    font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--secondary-d); margin-block-end: 4px; display: flex; gap: 8px; align-items: center;
+  }
+  .z-letter {
+    display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); color: var(--white); font-size: .7rem; letter-spacing: 0;
+  }
+  .rail .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 6px; color: var(--text); }
+  .rail .row span:last-child { color: var(--grey-mid); font-size: .8rem; }
+  .rail .toggle { display: flex; gap: 6px; }
+  .rail .toggle b { flex: 1; text-align: center; padding: 3px 0; border-radius: 6px; border: 1px solid var(--line); font-size: .82rem; }
+  .rail .toggle b.on { background: var(--tint); color: var(--primary); }
+  .rail .muted { color: var(--grey-mid); }
+
+  .zones { display: flex; flex-direction: column; gap: 14px; }
+  .zone-note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary);
+    padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 6px;
+  }
+  .zone-note h3 { font-size: 1.05rem; display: flex; gap: 10px; align-items: center; color: var(--primary-d); }
+  .zone-note p { color: var(--grey-mid); font-size: .96rem; }
+  .zone-note:nth-child(2) { border-top-color: var(--secondary); }
+  .zone-note:nth-child(3) { border-top-color: var(--primary-d); }
+  .zone-note:nth-child(4) { border-top-color: var(--secondary-d); }
+
+  /* ---------- menukaarten ---------- */
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    background: var(--white); border-radius: 16px;
+    border-top: 4px solid var(--primary); box-shadow: var(--shadow);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .card.g { border-top-color: var(--secondary); }
+  .card.d { border-top-color: var(--primary-d); }
+  .card.dg { border-top-color: var(--secondary-d); }
+  .card-head { padding: 1.1rem 1.3rem .8rem; display: flex; flex-direction: column; gap: 4px; }
+  .card-head h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+  .card-head .path { font-size: .8rem; color: var(--grey-mid); }
+  .card dl { padding: .2rem 1.3rem 1.2rem; display: flex; flex-direction: column; gap: 12px; }
+  .card dt {
+    font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--primary); margin-block-end: 3px;
+  }
+  .card.g dt { color: var(--secondary-d); }
+  .card dd { font-size: .95rem; line-height: 1.55; }
+  .card dd.tip { background: var(--bg); border-radius: 10px; padding: 8px 12px; color: var(--text); }
+  .card ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 3px; }
+
+  /* ---------- tabel ---------- */
+  .table-wrap { overflow-x: auto; border-radius: 16px; box-shadow: var(--shadow); background: var(--white); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .95rem; }
+  thead { background: var(--primary); color: var(--white); }
+  th, td { text-align: left; padding: 11px 16px; vertical-align: top; }
+  th { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+  tbody tr:nth-child(odd) { background: var(--white); }
+  tbody tr:nth-child(even) { background: var(--tint); }
+  td:first-child { font-weight: 700; white-space: nowrap; color: var(--primary-d); }
+
+  /* ---------- keuzelijst ---------- */
+  .picks { display: flex; flex-direction: column; gap: 1px; background: var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .pick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding: 14px 20px; background: var(--white); }
+  .pick-when { flex: 1 1 280px; min-width: 0; }
+  .pick-what { font-weight: 700; color: var(--primary); }
+
+  .note {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    border-top: 4px solid var(--secondary);
+    padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 8px; max-width: 72ch;
+  }
+  .note h3 { font-size: 1.05rem; color: var(--secondary-d); }
+  .note p { color: var(--grey-mid); }
+
+  /* ---------- footer ---------- */
+  .footer { position: relative; background: var(--primary); color: var(--white); padding-block: 44px 40px; overflow: hidden; }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .footer::after {
+    content: ""; position: absolute; top: 0; right: 0;
+    border-style: solid; border-width: 0 180px 180px 0;
+    border-color: transparent rgba(255, 255, 255, .07) transparent transparent;
+  }
+  .footer .wrap { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; }
+  .footer .brand { font-weight: 900; font-size: 1.1rem; }
+  .footer .desc { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .78); }
+  .footer p { font-size: .88rem; color: rgba(255, 255, 255, .86); max-width: 74ch; }
+
+  code {
+    font-family: Consolas, "Courier New", monospace; font-size: .88em;
+    background: var(--bg); color: var(--primary-d);
+    border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; white-space: nowrap;
+  }
+  td:nth-child(2) { white-space: normal; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Oriëntatie · Gemini</span>
+    <h1>Het linkermenu van Gemini</h1>
+    <div class="hero-rule"></div>
+    <p>Het derde overzicht in de reeks, na Claude en Perplexity. Ook hier de balk links van boven naar beneden, met elk submenu opengeklapt. Nagelopen op 24 september 2026 in <strong>jouw account</strong> (Google AI Pro).</p>
+  </div>
+</header>
+
+<!-- ============ KAART ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Overzicht</span>
+      <h2>Vier zones, en een tandwiel vol extra's</h2>
+      <div class="section-rule"></div>
+      <p>Bij Gemini is de balk standaard ingeklapt: open hem met <span class="ui">☰</span> linksboven. Het menu toont vooral wat je maakt. Veel functies, zoals Gems en geplande acties, zitten achter het tandwiel onderin.</p>
+    </div>
+
+    <div class="map">
+      <nav class="rail" aria-label="Schets van het linkermenu van Gemini">
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">A</span>Kop</span>
+          <div class="row"><span>✦ Gemini</span><span>× sluiten</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">B</span>Hoofdmenu</span>
+          <div class="row"><span>Nieuw gesprek</span></div>
+          <div class="row"><span>Zoeken in gesprekken</span></div>
+          <div class="row"><span>Afbeeldingen</span></div>
+          <div class="row"><span>Video's</span></div>
+          <div class="row"><span>Bibliotheek</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">C</span>Jouw werk</span>
+          <div class="row"><span>Notebooks</span><span>+ nieuw</span></div>
+          <div class="row"><span>Recent</span><span>vastgezet eerst</span></div>
+        </div>
+        <div class="zone">
+          <span class="z-label"><span class="z-letter">D</span>Voetbalk</span>
+          <div class="row"><span>Activiteit</span></div>
+          <div class="row"><span>arijjan verboon · Pro</span><span>⚙</span></div>
+          <div class="row muted"><span>Amsterdam, Nederland</span><span>locatie</span></div>
+        </div>
+      </nav>
+
+      <div class="zones">
+        <div class="zone-note">
+          <h3><span class="z-letter">A</span>Kop: open en dicht</h3>
+          <p>De balk schuift over het scherm en sluit met het kruisje. Bovenaan de pagina, buiten de balk, staan de modelkeuze (nu <em>Flash-Lite</em>), een <span class="ui">Privégesprek</span>-knop en je Google-account.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">B</span>Hoofdmenu: maken en terugvinden</h3>
+          <p>Nieuw gesprek en zoeken, twee startpunten voor beeld (<span class="ui">Afbeeldingen</span>, <span class="ui">Video's</span>) en de <span class="ui">Bibliotheek</span> met alles wat Gemini voor je maakte.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">C</span>Jouw werk: notebooks en gesprekken</h3>
+          <p>Notebooks zijn mappen met bronnen, gedeeld met NotebookLM. Daaronder je recente gesprekken, met vastgezette bovenaan.</p>
+        </div>
+        <div class="zone-note">
+          <h3><span class="z-letter">D</span>Voetbalk: het tandwiel is de sleutel</h3>
+          <p><span class="ui">Activiteit</span> bepaalt wat Google van je gesprekken bewaart. Het <span class="ui">⚙</span> naast je naam opent het grootste menu van de app. Daaronder staat de locatie die Gemini gebruikt, af te leiden uit je IP-adres.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOOFDMENU ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone B</span>
+      <h2>Het hoofdmenu, item voor item</h2>
+      <div class="section-rule"></div>
+      <p>Per item: wat je er vindt, welke knoppen er zitten, en waar je het voor gebruikt.</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-head"><h3>Nieuw gesprek</h3><span class="path">gemini.google.com/app</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Het invoerveld. Linksboven kies je het model, rechtsboven start je een privégesprek dat niet in je geschiedenis komt.</dd></div>
+          <div><dt>Submenu's</dt><dd>
+            <ul>
+              <li><span class="ui">Model ⌄</span>: 3.5 Flash-Lite (snelst), 3.8 Flash (allround), 3.1 Pro (redeneren) en <span class="ui">Uitgebreid nadenken</span> voor complexe problemen.</li>
+              <li><span class="ui">+</span> in het invoerveld: Bestanden, Drive, Google Foto's, Notebooks als bron, en tools: Afbeelding maken, Video maken, Muziek maken, Canvas, Begeleid leren.</li>
+              <li>Typ <span class="ui">@</span> om een gekoppelde app aan te roepen, zoals <span class="ui">@Gmail</span> of <span class="ui">@Google Drive</span>.</li>
+            </ul>
+          </dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Snelle vragen, en alles wat je Google-omgeving raakt: mail, agenda en Drive-bestanden zonder te uploaden.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card g">
+        <div class="card-head"><h3>Zoeken in gesprekken</h3><span class="path">gemini.google.com/search</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Een zoekveld over al je eerdere gesprekken.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Een oud gesprek terugvinden. Bij Claude en Perplexity zit dit als vergrootglas in de balk; hier is het een eigen menu-item.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card d">
+        <div class="card-head"><h3>Afbeeldingen en Video's</h3><span class="path">/images · /videos</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Twee startschermen met templates. Afbeeldingen draait op <em>Nano Banana 2</em>. Video's biedt ruim dertig templates, van <em>Logo-onthulling</em> en <em>Handleiding</em> tot <em>Showcase van producten</em>, en een knop <span class="ui">Maken met Omni</span>.</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Beeld dat Claude en Perplexity niet maken. Een uitleg-video of productshowcase voor een training begin je hier.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card dg">
+        <div class="card-head"><h3>Bibliotheek</h3><span class="path">gemini.google.com/library</span></div>
+        <dl>
+          <div><dt>Wat je vindt</dt><dd>Alles wat Gemini voor je maakte, in twee blokken: <span class="ui">Documenten</span> (zoals je <em>Werkkaart Zinken Dakgoten Solderen</em>) en <span class="ui">Media</span> (afbeeldingen en infographics).</dd></div>
+          <div><dt>Gebruik het voor</dt><dd class="tip">Een gemaakte afbeelding of Canvas-document terugvinden zonder het gesprek te zoeken. Vergelijkbaar met Artifacts bij Claude.</dd></div>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOUW WERK ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone C</span>
+      <h2>Notebooks en Recent</h2>
+      <div class="section-rule"></div>
+      <p>Beide kopjes klappen in met het pijltje. Elk item heeft een <span class="ui">⋮</span>-menu; vastgezette items tonen een punaise.</p>
+    </div>
+
+    <div class="grid" style="margin-block-end: 28px">
+      <article class="card">
+        <div class="card-head"><h3>Notebooks</h3><span class="path">gemini.google.com/notebooks/view</span></div>
+        <dl>
+          <div><dt>Toont</dt><dd><span class="ui">Nieuwe notebook</span>, je vastgezette notebooks en <span class="ui">Alle notebooks</span>. Je hebt er ruim dertig, van <em>PH Verbouwing</em> (240 bronnen) tot <em>Research and knowledge workflow</em> (74 bronnen).</dd></div>
+          <div><dt>⋮-menu</dt><dd>Vastzetten, Naam wijzigen, Verwijderen.</dd></div>
+          <div><dt>Goed om te weten</dt><dd class="tip">Notebooks synchroniseren met NotebookLM (in het tandwielmenu: <span class="ui">Gemini Notebook</span>). Wat je hier toevoegt, zie je daar ook.</dd></div>
+        </dl>
+      </article>
+      <article class="card g">
+        <div class="card-head"><h3>Recent</h3><span class="path">lijst in de balk</span></div>
+        <dl>
+          <div><dt>Toont</dt><dd>Je gesprekken, vastgezette bovenaan. Bij jou staan er vier vast, waaronder <em>Start Mentor-Sessie Bouw document naamgeving</em>.</dd></div>
+          <div><dt>⋮-menu</dt><dd>Gesprek delen, Vastzetten, Naam wijzigen, <span class="ui">Toevoegen aan notebook</span>, Verwijderen.</dd></div>
+          <div><dt>Tip</dt><dd class="tip">Met <em>Toevoegen aan notebook</em> verplaats je een los gesprek naar het juiste onderwerp, zoals bij Claude met <em>Change project</em>.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOETBALK ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Zone D</span>
+      <h2>Het tandwielmenu</h2>
+      <div class="section-rule"></div>
+      <p>Hier zit meer dan bij Claude en Perplexity. Gems en geplande acties, die elders een eigen menu-item hebben, vind je bij Gemini alleen hier.</p>
+    </div>
+
+    <div class="table-wrap" style="margin-block-end: 28px">
+      <table>
+        <thead><tr><th>Item</th><th>Wat je er regelt</th></tr></thead>
+        <tbody>
+          <tr><td>Persoonlijke context</td><td>Geheugen uit eerdere gesprekken, en je eigen instructies. Bij jou staat er één: "Begin de reacties met een samenvatting."</td></tr>
+          <tr><td>Herinnering importeren</td><td>Context overnemen uit een andere AI-assistent.</td></tr>
+          <tr><td>Gebruikslimieten</td><td>Hoeveel je van je Pro-tegoed gebruikt hebt.</td></tr>
+          <tr><td>Gekoppelde apps</td><td>Google Workspace (Gmail, Calendar, Documenten, Drive, Keep, Tasks), YouTube Music, Gemini Notebook, Bedrijfsprofiel, en daarbuiten onder meer GitHub.</td></tr>
+          <tr><td>Geplande acties</td><td>Taken die Gemini op een tijdstip uitvoert. Templates zoals <em>Kort nieuwsoverzicht</em>, plus <span class="ui">Nieuwe actie</span>.</td></tr>
+          <tr><td>Gems</td><td>Eigen versies van Gemini met vaste instructies. Kant-en-klaar: Brainstormer, Loopbaanadviseur, Programmeerpartner, Studiebegeleider, Schrijfeditor en meer. <span class="ui">Nieuwe Gem</span> voor je eigen.</td></tr>
+          <tr><td>Je openbare links</td><td>Gesprekken die je hebt gedeeld, en die links intrekken.</td></tr>
+          <tr><td>Thema</td><td>Licht, donker of systeem.</td></tr>
+          <tr><td>Abonnement beheren</td><td>Je Google AI Pro via Google One. Daaronder de upgrade naar Ultra.</td></tr>
+          <tr><td>Gemini Notebook</td><td>Opent NotebookLM in een nieuw tabblad.</td></tr>
+          <tr><td>Mediawatermerk</td><td>Instellingen voor het watermerk op gemaakte beelden.</td></tr>
+          <tr><td>Feedback sturen · Hulp</td><td>Een melding naar Google, en het helpcentrum.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid">
+      <article class="card d">
+        <div class="card-head"><h3>Activiteit</h3><span class="path">boven je naam</span></div>
+        <dl><div><dd>Opent je <em>Gemini Apps-activiteit</em> in je Google-account: of Google je gesprekken bewaart, hoe lang, en of ze gebruikt worden om de dienst te verbeteren. Dit is de privacyknop van Gemini.</dd></div></dl>
+      </article>
+      <article class="card dg">
+        <div class="card-head"><h3>Locatie</h3><span class="path">onderaan de balk</span></div>
+        <dl><div><dd>Gemini gebruikt je locatie voor lokale antwoorden. Nu <em>Amsterdam, op basis van je IP-adres</em>. Met <span class="ui">Locatie updaten</span> maak je die preciezer.</dd></div></dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERGELIJKING ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Naast elkaar</span>
+      <h2>Gemini, Claude en Perplexity vergeleken</h2>
+      <div class="section-rule"></div>
+      <p>Dezelfde bouwstenen, op andere plekken en onder andere namen.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Gemini</th><th>Claude</th><th>Perplexity</th></tr></thead>
+        <tbody>
+          <tr><td>Nieuw gesprek</td><td>New</td><td>Nieuw</td></tr>
+          <tr><td>Notebooks</td><td>Projects</td><td>Projecten</td></tr>
+          <tr><td>Bibliotheek</td><td>Artifacts</td><td>Artefacten</td></tr>
+          <tr><td>Gems (⚙)</td><td>Skills (Customize)</td><td>Skills (Aanpassen)</td></tr>
+          <tr><td>Gekoppelde apps (⚙)</td><td>Connectors (Customize)</td><td>Connectors (Aanpassen)</td></tr>
+          <tr><td>Geplande acties (⚙)</td><td>Scheduled</td><td>Terugkerende taken in Computer</td></tr>
+          <tr><td>Persoonlijke context (⚙)</td><td>Settings → Memory</td><td>Aanpassen → Geheugen</td></tr>
+          <tr><td>Afbeeldingen, Video's</td><td>(geen)</td><td>(geen eigen menu)</td></tr>
+          <tr><td>(geen)</td><td>Cowork, Code</td><td>Computer</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note" style="margin-block-start: 28px">
+      <h3>Wat dit zegt</h3>
+      <p>Gemini is sterk in beeld en in je Google-omgeving. In jouw menu staat geen agent die zelfstandig een meerstappentaak op je bestanden uitvoert. Daarvoor blijven Claude (Cowork, Code) en Perplexity (Computer) de plek.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIJBLIJVEN ============ -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow-content">Bijblijven</span>
+      <h2>Waar zie je wat er nieuw is?</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="picks" style="margin-block-end: 28px">
+      <div class="pick"><span class="pick-when">Nieuwe functies in de Gemini-app, per update</span><span class="pick-what"><a href="https://gemini.google/release-notes/">gemini.google/release-notes</a></span></div>
+      <div class="pick"><span class="pick-when">Wijzigingen voor wie op de API bouwt</span><span class="pick-what"><a href="https://ai.google.dev/gemini-api/docs/changelog">Gemini API-changelog</a></span></div>
+      <div class="pick"><span class="pick-when">Updates van Gemini, Claude en Perplexity op één plek</span><span class="pick-what"><a href="https://releasebot.io/updates/google/gemini">Releasebot</a></span></div>
+      <div class="pick"><span class="pick-when">Nieuwe kant-en-klare toepassingen</span><span class="pick-what">⚙ → Gems, en Video's-templates</span></div>
+      <div class="pick"><span class="pick-when">Nieuwe koppelingen</span><span class="pick-what">⚙ → Gekoppelde apps</span></div>
+    </div>
+    <div class="note">
+      <h3>Opgevallen</h3>
+      <p>Op de pagina Geplande acties staat een melding dat je sommige acties al een tijd niet hebt gebruikt. Kijk daar even of ze nog nodig zijn.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <span class="brand">De Baak</span>
+    <span class="desc">Training · Ontwikkeling · Leiderschap · Sinds 1947</span>
+    <p>Nagelopen op 24 september 2026 op gemini.google.com, met jouw account, in de Nederlandstalige interface. De Gemini-app op je telefoon kan op details afwijken.</p>
+    <p>Google past Gemini vaak aan. Mist er iets of heet het anders, kijk dan eerst in de release notes.</p>
+  </div>
+</footer>
+
+</body></html>
