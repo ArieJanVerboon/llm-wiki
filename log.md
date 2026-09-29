@@ -171,3 +171,45 @@ Zie `templates/_log-entry.md` voor het body-formaat.
 - Geen samenvattingspagina's van de menubeschrijvingen zelf. Die blijven in `raw/` opzoekbaar zonder dat de wiki hun veroudering overneemt.
 - Twee bevindingen uit de reeks die buiten dit onderwerp vallen en niet in de wiki zijn verwerkt, maar wel gemeld: **Supabase** meldt `RLS Disabled in Public` op de portfolio-database (1 fout, 9 waarschuwingen, stand 2026-09-28) en heeft geen GitHub-koppeling, geen migraties en geen back-ups op het gratis plan. **Apify** stond op $5.65 van $19.
 - Geen wijziging in `CLAUDE.md`. De ervaring dat een bron soms een *reeks* is, en dat twintig samenvattingen dan het verkeerde antwoord zijn, is een kandidaat voor §3.1 — maar schema-wijzigingen gaan in overleg.
+
+## [2026-09-29] ingest | De linkermenu-reeks — resterende gereedschappen, en het testplan
+
+**Bron:** dezelfde als de entry hierboven, `raw/linkermenu/` — nu de vijftien pagina's buiten de research-flow.
+**Samenvattingspagina:** [[wiki/sources/linkermenu-reeks]] (bijgewerkt, niet opnieuw geschreven)
+
+**Aanleiding.** AV: *"ga verder, en weet dat we de hele research flow nog moeten testen"*, en daarna: *"maak het testplan op basis van je advies"*.
+
+**Nieuwe pagina's:**
+
+- [[wiki/topics/gereedschapslandschap]] — alle twintig gereedschappen met hun stand per meetdatum, en de lijst **wat aandacht vraagt**: elf punten over acht gereedschappen, elk met datum en herkomst.
+- [[wiki/concepts/gegevenshygiene]] — wat elk gereedschap met je gegevens mag, als gedateerde instelling in plaats van een aanname.
+- [[wiki/entities/claude]] — schrijft dit wiki, draagt de geplande taken, en heeft drie gedaanten met drie verschillende menu's (Scheduled / Routines / geen).
+- [[wiki/entities/supabase]] — vanwege de openstaande beveiligingsbevinding; die heeft een status nodig, geen tabelregel.
+
+**Geraakte pagina's:**
+
+- [[wiki/topics/research-flow]] — **testplan herschreven naar drie ronden met een stopregel**, in de volgorde die ik adviseerde in plaats van zeven gelijkwaardige tests. T5 (nieuwste *Date Added* in Zotero) eerst, want dat is de enige test die onafhankelijk is van wat de flows beweren te doen; valt die negatief uit, dan vervallen T2, T3, T4 en T7 voorlopig. T6 staat bewust vóór T4. Daarna de end-to-end-test, en een sectie *van test naar check*. Statusregel van de these aangevuld met **ongetest**.
+- [[wiki/sources/linkermenu-reeks]] — entiteiten- en conceptenlijst uitgebreid; expliciet gemaakt dat de overige dertien gereedschappen rijen zijn in het landschap en geen pagina hebben.
+- `index.md` — 1 topic, 1 concept en 2 entities toegevoegd.
+
+**Vaststelling die dit run opleverde:**
+
+Op **24 september 2026** is in drie gereedschappen tegelijk dezelfde knop omgezet: OpenRouter op Zero Data Retention met trainende aanbieders uit, Copilot met training op tekst en spraak uit, DeepSeek met *Verbeter het model voor iedereen* uit. Dat is één handeling, dus als één feit vastgelegd. **Vier dagen later** meldt Supabase `RLS Disabled in Public`. De zorg is dus toegepast op de gereedschappen die tekst verwerken en niet op de plek waar de gegevens liggen. Twee restrisico's blijven: DeepSeek slaat volgens zijn privacybeleid gegevens op in China (training uit verandert dat niet), en de traininginstelling van ChatGPT is **niet nagegaan** — het gat dat pas opvalt doordat de andere drie wél zijn nagelopen.
+
+**Gedeeltelijk achterhaald:** de vorige entry meldde onder *bewust niet gedaan* dat er geen entity-pagina's kwamen voor onder meer Claude en Supabase. Die twee zijn er nu wel, omdat ze feiten dragen die uitleg of een status nodig hebben. De andere dertien blijven rijen.
+
+**Open vragen toegevoegd:**
+
+- Staat *Het model verbeteren voor iedereen* in ChatGPT aan of uit?
+- Welke Supabase-tabel staat open, en hoort daar niet-publieke data in?
+- Traint Perplexity Enterprise Pro op organisatiedata? Daar gaat het meeste onderzoek door.
+- Welke van de twintig gereedschappen zijn in de laatste maand voor echt werk gebruikt?
+- Wat betekenen de voorvoegsels *F3*, *D* en *PH* in de DeepSeek-gesprekstitels? Dat is de enige ordening daar, en ze staat nergens anders dan in de titels zelf.
+- Zijn de *2 taken* en de *vier taken* op de Claude-pagina te rijmen, of is één van beide getallen fout in de bron?
+
+**Bewust niet gedaan in dit run:**
+
+- Dertien gereedschappen zonder eigen pagina (Cloudflare, GitHub, Apify, OpenRouter, LangSmith, Disco, Figma, ChatGPT, Gemini, DeepSeek, Copilot, LLM Council, Antigravity). Hun waarnemingen staan in [[wiki/topics/gereedschapslandschap]]; promoveren kan zodra er een tweede bron over komt of er iets aan gedaan moet worden.
+- **Geen test uitgevoerd.** Het testplan staat er; de uitslagtabel is leeg. T1 tot T4 zouden via de n8n-API of Instance-level MCP uitleesbaar zijn, maar deze sessie heeft daar geen credential voor.
+- Niets veranderd aan een instelling, een database of een workflow. RLS aanzetten raakt een live database en is een besluit van AV.
+- Geen wijziging in `CLAUDE.md`.

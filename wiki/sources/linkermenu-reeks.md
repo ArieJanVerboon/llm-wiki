@@ -52,13 +52,18 @@ Er zijn ook twee meetmomenten, geen één: 17 pagina's van 24 september 2026, en
 - [[wiki/entities/zotero]] — het bronnenarchief; 5 bronnen, machinetags uit een automatisering
 - [[wiki/entities/clickup]] — de planlaag; Space *Product Research & Delivery Hub*
 - [[wiki/entities/obsidian]] — de leesbril op dit wiki; kluis = llm-wiki, versie 1.13.7
+- [[wiki/entities/claude]] — schrijft dit wiki, en draagt de geplande taken; drie gedaanten met drie menu's
+- [[wiki/entities/supabase]] — de database onder de portfolio-site; ⚠ open beveiligingsbevinding
 - [[wiki/entities/baakiedoc]] — genoemd op de Perplexity-pagina als wat op de Perplexity-API bouwt
 - [[wiki/entities/de-baak]] — huisstijl en afzender van de reeks
+
+De overige dertien gereedschappen staan als rij in [[wiki/topics/gereedschapslandschap]] en hebben (nog) geen eigen pagina.
 
 ## Concepten genoemd
 
 - [[wiki/concepts/ingest-query-lint]] — de Obsidian-pagina beschrijft de ingest als de operationele praktijk: bronnen in `raw/`, dan Claude Code
 - [[wiki/concepts/three-layer-architecture]] — de kluisboom in Obsidian maakt de drie lagen letterlijk zichtbaar
+- [[wiki/concepts/gegevenshygiene]] — de reeks legt per gereedschap vast wat het met je gegevens mag; op 2026-09-24 is dat in drie tegelijk omgezet
 
 ## Citaten waard
 

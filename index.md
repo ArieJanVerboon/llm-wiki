@@ -11,6 +11,7 @@ _(nog leeg — `wiki/overview.md` wordt aangemaakt zodra er meerdere topics zijn
 ## Topics
 
 - [[wiki/topics/baakie-pipeline]] — 2026-05-20 — Architectuur en werking van De Baak's document-managementpijplijn: drie agenten (baakiedoc → baakiekwal → baakieprint) rond een centraal Excel-register en single-source-of-truth contentbibliotheek. *(3 bronnen — thesis_status: opening)*
+- [[wiki/topics/gereedschapslandschap]] — 2026-09-29 — Inventaris van twintig gereedschappen met hun stand per meetdatum, plus de lijst *wat aandacht vraagt*: elf punten over acht gereedschappen. *(1 bron — thesis_status: opening)*
 - [[wiki/topics/llm-augmented-knowledge-bases]] — 2026-09-29 — Meta-topic over hoe je een persoonlijke kennisbank effectief door een LLM laat onderhouden. *(2 bronnen — thesis_status: opening)*
 - [[wiki/topics/research-flow]] — 2026-09-29 — Hoe onderzoek van vraag tot kennisbank loopt: machinaal tot in het bronnenarchief, handwerk daarna. Zes benoemde gaten, waaronder een weektaak die misschien niet draait. *(1 bron — thesis_status: opening)*
 
@@ -20,12 +21,14 @@ _(nog leeg — `wiki/overview.md` wordt aangemaakt zodra er meerdere topics zijn
 - [[wiki/entities/baakiedoc]] — 2026-05-20 — Eerste schakel Baakie-pipeline: documentmanagement, taxonomie, naamgeving, register. *(2 bronnen — type: agent)*
 - [[wiki/entities/baakiekwal]] — 2026-05-20 — Tweede schakel Baakie-pipeline: assessment op auteursrecht, bronvermelding, wetenschappelijke kwaliteit. *(1 bron — type: agent)*
 - [[wiki/entities/baakieprint]] — 2026-05-20 — Derde schakel Baakie-pipeline: publicatie-output in 5 formats (doc/pdf/pptx/responsive-HTML/Anewspring) op basis van skeletons. *(1 bron — type: agent)*
+- [[wiki/entities/claude]] — 2026-09-29 — Schrijft dit wiki en draagt de geplande taken; drie gedaanten met drie menu's (Scheduled / Routines / geen). Vier taken, waarvan er één draait. *(1 bron — type: product)*
 - [[wiki/entities/clickup]] — 2026-09-29 — Planlaag van de research-flow: één Space, zeven taken allemaal prioriteit High zonder eigenaar of datum; niet gekoppeld aan n8n. *(1 bron — type: product)*
 - [[wiki/entities/de-baak]] — 2026-05-20 — Nederlandse organisatie voor training, ontwikkeling en leiderschap sinds 1947; opdrachtgever van de Baakie-pipeline. *(2 bronnen — type: organization)*
 - [[wiki/entities/karpathy]] — 2026-05-20 — Andrej Karpathy: AI-onderzoeker/educator, auteur van het LLM Wiki-patroon. *(1 bron — type: person)*
 - [[wiki/entities/n8n]] — 2026-09-29 — Het koppelwerk: 13 workflows, vier Antifragile-flows op Published, en de enige benoemde schakel van onderzoek naar archief. *(1 bron — type: product)*
 - [[wiki/entities/obsidian]] — 2026-09-29 — Leesbril op dit wiki, versie 1.13.7, sync via GitHub. ⚠ de bron noemt een kluispad dat niet bestaat. *(1 bron — type: product)*
 - [[wiki/entities/perplexity]] — 2026-09-29 — Waar het onderzoek gebeurt: Enterprise Pro, sessies *docuresearch* en *AI News Monitoring*. Google Drive-koppeling verloopt 31-10-2026. *(1 bron — type: product)*
+- [[wiki/entities/supabase]] — 2026-09-29 — Database onder de portfolio-site, gratis plan. ⚠ openstaande bevinding: RLS uit op een tabel in `public`, en geen back-ups. *(1 bron — type: product)*
 - [[wiki/entities/vannevar-bush]] — 2026-05-20 — Vannevar Bush: ingenieur (1890–1974), bedacht de Memex in *As We May Think* (1945). *(1 bron — type: person)*
 - [[wiki/entities/zotero]] — 2026-09-29 — Bronnenarchief en eindpunt van de automatisering: 5 bronnen, geen collecties, machinetags uit een n8n-flow. *(1 bron — type: product)*
 
@@ -34,6 +37,7 @@ _(nog leeg — `wiki/overview.md` wordt aangemaakt zodra er meerdere topics zijn
 - [[wiki/concepts/auteursrecht-wetenschappelijk-werk]] — 2026-05-20 — Drie criteria + werkgeversauteursrecht + Taverne-amendement + AI-implicaties; eerste assessment-criterium van baakiekwal. *(1 bron)*
 - [[wiki/concepts/baakiekwal-werkwijze]] — 2026-05-20 — Brug-pagina naar operationele canon in `baakie-orchestrator/spaces/baakiekwal/` (CRAFT-rubrieken, kwaliteitscriteria, voorbeeldrapporten). *(canon-bridge — 0 bronnen)*
 - [[wiki/concepts/bronvermelding]] — 2026-05-20 — Tweede assessment-criterium van baakiekwal. *(placeholder — 0 bronnen)*
+- [[wiki/concepts/gegevenshygiene]] — 2026-09-29 — Wat elk gereedschap met je gegevens mag, als gedateerde instelling. Op 24-09-2026 in drie tools omgezet; vier dagen later bleek de datakant open te staan. *(1 bron)*
 - [[wiki/concepts/ingest-query-lint]] — 2026-05-20 — De drie kern-operaties op een LLM Wiki: nieuwe bronnen verwerken, vragen beantwoorden, periodiek health-checken. *(1 bron)*
 - [[wiki/concepts/llm-wiki-pattern]] — 2026-05-20 — Centraal concept: LLM bouwt incrementeel een persistent markdown-wiki uit ruwe bronnen in plaats van bij elke vraag opnieuw te synthetiseren. *(1 bron)*
 - [[wiki/concepts/memex]] — 2026-05-20 — Vannevar Bush's hypothetische persoonlijke kennisapparaat (1945) — geestelijke voorouder van het LLM Wiki-patroon. *(1 bron)*

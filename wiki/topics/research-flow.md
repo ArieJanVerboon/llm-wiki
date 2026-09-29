@@ -23,7 +23,7 @@ Die breuk zit precies op de plek waar betekenis wordt toegevoegd. Alles vóór d
 
 Daarnaast hangt de **planlaag los**. ClickUp bevat de onderzoeksplanning, n8n voert uit, en geen van beide weet van de ander.
 
-_Stand per 2026-09-29 — gebaseerd op één bron ([[wiki/sources/linkermenu-reeks]]), met meetdata 2026-09-24 en 2026-09-28._
+_Stand per 2026-09-29 — gebaseerd op één bron ([[wiki/sources/linkermenu-reeks]]), met meetdata 2026-09-24 en 2026-09-28. **Ongetest**: zie het Testplan hieronder. Deze these beschrijft wat de bron zegt dat er staat, niet wat er draait._
 
 ## De keten zoals de bron hem laat zien
 
@@ -74,6 +74,79 @@ Beide zijn hieronder uitgewerkt.
 
 **6. Er is geen trigger of schema benoemd** voor Flow B. Bij *Marktplaats Daily Scraper* zit het in de naam; bij B nergens.
 
+## Testplan — hiervan is nog niets getest
+
+**Status per 2026-09-29: ongetest.** Alles hierboven is gereconstrueerd uit *beschrijvingen* van de keten, niet waargenomen in werking. De bron zegt dat Flow B onderzoek uit Perplexity vastlegt; hij zegt niet dat die flow deze maand gedraaid heeft. Zolang de tests hieronder niet gedraaid zijn, is dit topic een hypothese en geen beschrijving.
+
+Dat onderscheid is het hele punt van deze sectie: het verschil tussen een keten die *bestaat* en een keten die *draait* is niet uit een beschrijving af te lezen — alleen uit wat er aan de achterkant uitkomt.
+
+### De volgorde is het advies
+
+Niet zeven tests naast elkaar, maar drie ronden met een stopregel ertussen. Meten kost tijd; de meeste tijd gaat verloren aan het nauwkeurig in kaart brengen van iets dat helemaal niet meer draait.
+
+**Ronde 1 — kijk naar de uitkomst, niet naar de machine.**
+
+| | Test | Wat je doet | Wat je opschrijft |
+|---|---|---|---|
+| **T5** | Komt er iets áán? | Zotero openen, kolom *Date Added* toevoegen en daarop sorteren | de datum van de nieuwste bron |
+
+Dat is één blik en het is de enige test die onafhankelijk is van wat de flows *beweren* te doen. Een keten die bestaat en een keten die draait zien er in n8n identiek uit; in Zotero niet.
+
+> **Stopregel.** Is de nieuwste *Date Added* ouder dan pakweg twee maanden, dan is de keten stil. Sla ronde 2 dan grotendeels over: T2, T3, T4 en T7 beschrijven dan de bouw van iets dat niet loopt. Doe alleen **T1** (wanneer draaide B voor het laatst, en met welke fout) en ga daarna direct naar de end-to-end-test. Eerst weten wáár het stopte, dan pas repareren.
+
+**Ronde 2 — lees de machine, in deze volgorde.**
+
+| | Test | Wat je doet | Bevestigt als | Weerlegt als |
+|---|---|---|---|---|
+| **T1** | Draait Flow B? | n8n → Overview → Executions, filteren op *Antifragile Flow B* | runs in de laatste 30 dagen met status success | geen runs, of alleen fouten |
+| **T2** | Waar schrijft B naartoe? | de workflow openen, de laatste nodes bekijken | een Zotero- of HTTP-node naar de Zotero-API | het eindpunt is iets anders |
+| **T3** | Is er een route naar dit wiki? | in álle flows zoeken op `github`, `llm-wiki`, `review` | zo'n node bestaat → gat 1 is half gebouwd | niets → gat 1 staat helemaal open |
+| **T6** | Draait de weektaak? | `claude.ai/scheduled-task`, sorteren op volgende run | *Weekly: AI-tools Updates* staat er en is actief | hij staat er niet, of staat gepauzeerd |
+| **T4** | Wat doen A, C en D? | de drie workflows openen; trigger en eindpunt noteren | ze horen bij dezelfde keten | losse flows die alleen de naam delen |
+| **T7** | ClickUp ↔ n8n? | n8n → Credentials op een ClickUp-credential; ClickUp → Integrations | er is een werkende koppeling | alleen het token uit de AI-chat, niets actief |
+
+T1 tot T3 gaan over de schakel waar alles van afhangt. **T6 staat bewust vóór T4**: als de weektaak niet draait, is er geen periodieke aanzet, en dan is de vraag wat A, C en D doen minder dringend dan de vraag wat de keten in beweging zet. T4 en T7 zijn inventarisatie — nuttig, niet urgent.
+
+Voor T1 tot T4 hoeft niet geklikt te worden: volgens [[wiki/entities/n8n]] staan de **n8n API** en **Instance-level MCP** aan, en daarmee kan Claude de workflows en hun executions rechtstreeks uitlezen. Dat is sneller en het levert een uitslag die te kopiëren is in plaats van na te vertellen. Voorwaarde is een credential die deze sessie mag gebruiken; die is er nu niet.
+
+**Ronde 3 — de enige test die het geheel meet.**
+
+Duw één echte onderzoeksvraag door de keten en kijk waar hij blijft steken:
+
+```
+taak in ClickUp  →  onderzoek in Perplexity  →  vastleggen  →
+bron in Zotero   →  bestand in raw/          →  ingest      →  pagina in wiki/
+```
+
+De zes tests hiervoor meten onderdelen; deze meet de keten. **De plek waar het vastloopt is per definitie het echte gat**, en dat hoeft geen van de zes gaten hierboven te zijn — het kan ook iets zijn wat nergens in de bron staat. Kies een vraag die je toch al wilde uitzoeken, zodat de test zelf ook werk oplevert.
+
+### Uitslag invullen
+
+| Test | Uitslag | Datum | Door |
+|---|---|---|---|
+| T5 | | | |
+| T1 | | | |
+| T2 | | | |
+| T3 | | | |
+| T6 | | | |
+| T4 | | | |
+| T7 | | | |
+| end-to-end | | | |
+
+Vul deze tabel in deze pagina in en schrijf een log-entry `lint | research-flow getest`. Zolang de statusregel bovenaan *ongetest* zegt, is dat geen slordigheid maar de waarheid.
+
+### En daarna: van test naar check
+
+Een test vertelt hoe het er vandaag voor staat. Dat is precies zo duurzaam als het geheugen van degene die hem draaide — en deze hele pagina bestaat omdat niemand wist of Flow B nog liep.
+
+Dus sluit elke bevinding af met iets dat het de volgende keer zélf merkt:
+
+- **T5 → een check.** Draait er niets meer in Zotero, dan is dat pas een storing als iets het opmerkt. Een wekelijkse controle op de nieuwste *Date Added* is genoeg; die kan in dezelfde geplande taak die T6 onderzoekt.
+- **T1 → een foutmelding die aankomt.** Een flow die faalt in n8n en niemand waarschuwt, is een flow die stil stopt. n8n houdt het foutpercentage bij; wie leest dat?
+- **T6 → één plek waar geplande taken staan.** Dat de weektaak zestien keer beloofd is en nergens aanwijsbaar, komt doordat geplande taken over claude.ai, Cowork, Perplexity en de Windows Taakplanner verspreid liggen. Zie [[wiki/entities/claude]].
+
+> speculatie: de goedkoopste versie hiervan is niet een script maar één geplande taak die wekelijks drie dingen naloopt — de nieuwste *Date Added* in Zotero, het foutpercentage in n8n, en of hijzelf nog bestaat — en die een regel wegschrijft. Drie getallen per week is genoeg om stilstand binnen een week te zien in plaats van binnen een kwartaal.
+
 ## Wat we vermoeden
 
 > speculatie: de tag `ingested:review` verwijst naar de map `review/` in deze kluis. Dan zou de flow al ontworpen zijn op een overdracht naar het wiki, en zou gat 1 niet ontbreken maar half gebouwd zijn. Te toetsen door Antifragile Flow B in n8n te openen en te kijken waar hij naartoe schrijft.
@@ -119,4 +192,6 @@ Dat is geen detail: de weektaak is de enige terugkerende onderzoeksactiviteit in
 ## Cross-references
 
 - Concrete instantie van: [[wiki/topics/llm-augmented-knowledge-bases]]
+- Vijf van de twintig gereedschappen in [[wiki/topics/gereedschapslandschap]] vormen deze keten
+- Al het materiaal loopt door de instellingen uit [[wiki/concepts/gegevenshygiene]]
 - Bronnen die dit onderwerp raken: [[wiki/sources/linkermenu-reeks]] (1/1)
