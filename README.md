@@ -60,6 +60,7 @@ for how to trigger each flow.
 | `review/` | Items awaiting review (confidence 60-79). | Internal |
 | `03_Failed/` | Outputs that failed automated parsing. | Internal |
 | `wiki/` | Curated, LLM-maintained wiki pages synthesized from `raw/`: `entities/`, `concepts/`, `topics/`, `sources/`. | Internal |
+| `MOCs/MOC.md` | Auto-generated Obsidian "Map of Content" index of research notes, rebuilt alongside `public/index.html` on the same trigger. **Do not edit by hand.** | Internal |
 | `templates/` | Page templates (`_entity.md`, `_concept.md`, `_topic.md`, `_source.md`, `_comparison.md`, `_log-entry.md`) used when creating new wiki pages. | Internal |
 | `index.md` | Catalogue of every wiki page, grouped by type. Updated on every ingest / new page. | Internal |
 | `log.md` | Append-only chronological log of `ingest` / `query` / `lint` / `schema` operations on the wiki. | Internal |
@@ -130,12 +131,22 @@ section/tags, reorder, etc.), then trigger a rebuild so `public/index.html`
 regenerates:
 
 ```powershell
-Invoke-RestMethod -Uri "<JOUW-N8N-URL>/webhook/rebuild-index" -Method Post -ContentType "application/json" -Body '{"trigger":"manual-rebuild"}'
+Invoke-RestMethod -Uri "<JOUW-N8N-URL>/webhook/rebuild-index" -Method Post -ContentType "application/json" -Headers @{ 'X-Webhook-Token' = $env:N8N_WEBHOOK_TOKEN } -Body '{"trigger":"manual-rebuild"}'
 ```
 
 The response reports `published_count` and `entry_count` and confirms the
 commit. The rebuild also backfills any `public/published/*.html` that is not yet
 in the manifest (into "Unsorted").
+
+All webhook calls (Flow B/C triggers and manual rebuilds) require the
+`X-Webhook-Token` header; see **HOWTO.md** ("Webhook-sleutel") for how to set
+it up once per computer.
+
+## Configuration
+
+- `N8N_WEBHOOK_TOKEN` — local environment variable holding the header token
+  for all n8n webhook calls. See **HOWTO.md** ("Webhook-sleutel") for the
+  one-time setup per computer.
 
 ## Working across multiple computers
 
